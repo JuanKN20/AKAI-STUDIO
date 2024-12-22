@@ -1,0 +1,156 @@
+/* Barra de navegación principal */
+.Barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #121212;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+}
+
+/* Sección izquierda: Logo y enlaces */
+.BarraIzquierda {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.Logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.navLinks {
+    display: flex;
+    gap: 2rem;
+}
+
+.navLinks a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+    color: #e91e63;
+}
+
+/* Barra de búsqueda */
+.searchBar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 2rem; /* Ajusta la separación de la barra de búsqueda */
+}
+
+.searchBar input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #555;
+    border-radius: 20px;
+    outline: none;
+    font-size: 1rem;
+    background-color: #1f1f1f;
+    color: #fff;
+}
+
+.searchBar button {
+    background-color: #e91e63;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.searchBar button:hover {
+    background-color: #c2185b;
+}
+
+/* Botón de iniciar sesión */
+.barraDerecha {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 1rem;
+    padding-right: 2rem;
+}
+
+.loginButton {
+    padding: 0.6rem 1.5rem;
+    background-color: #e91e63;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 2rem; /* Ajusta la separación con el borde */
+}
+
+.loginButton:hover {
+    background-color: #c2185b;
+    transform: scale(1.05);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navLinks {
+        display: none; /* Oculta los enlaces */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Debajo de la barra */
+        right: 0;
+        background-color: #121212;
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    .navLinks.active {
+        display: flex; /* Muestra los enlaces si el menú hamburguesa está activo */
+    }
+
+    .navLinks a {
+        padding: 0.5rem 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid #222;
+    }
+
+    .searchBar {
+        display: none; /* Oculta la barra de búsqueda en móviles */
+    }
+
+    .menu-icon {
+        display: none; /* Muestra el menú hamburguesa */
+    }
+
+    .barraDerecha {
+        display: none;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .loginButton {
+        margin-right: 0; /* Quita el margen derecho */
+        width: 100%; /* Botón ocupa todo el ancho */
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .Barra {
+        flex-direction: column; /* Organización en columna */
+    }
+}
