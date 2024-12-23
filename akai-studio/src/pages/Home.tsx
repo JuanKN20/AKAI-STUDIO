@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicesCarousel from'../components/ServicesCarousel';
 
+
 const Home: React.FC = () => {
   return (
     <div>
