@@ -1,4 +1,5 @@
 import React from 'react';
+import ServicesCarousel from'../components/ServicesCarousel';
 
 const Home: React.FC = () => {
   return (
@@ -45,6 +46,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+       {/* Sección servicios */}
+       <ServicesCarousel />
+
     </div>
   );
 };
