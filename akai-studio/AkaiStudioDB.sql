@@ -1,0 +1,1 @@
+CREATE DATABASE AkaiStudioDB TEMPLATE template0;
