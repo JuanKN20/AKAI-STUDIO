@@ -2,22 +2,26 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Services from './pages/Services';
-import About from './pages/About';
+import Juegos from './pages/Juegos';
 import Contact from './pages/Contact';
+import Noticias from './pages/Noticias'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
-      <div className="app-container">
+      <div className="w-full">
         <Navbar />
-        <main className="content">
+        <main className="w-100vw">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/juegos" element={<Juegos />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/noticias" element={<Noticias />} />
+
           </Routes>
         </main>
         <Footer />

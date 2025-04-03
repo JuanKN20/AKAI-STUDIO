@@ -3,56 +3,56 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-purple-1000 text-gray-400 py-4">
+    <footer className="bg-purple-1000 text-gray-400 py-4  mt-auto">
       <div className="container mx-auto px-4">
         {/* Primera Línea: Logo y Enlaces */}
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-4">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-4 ">
           <div className="flex items-center space-x-6">
             {/* Logo */}
             <img
-              src="src/assets/Recurso 1.png"
-              alt="Riot Games Logo"
+              src="src/assets/LogoAkai.png"
+              alt="AkaiStudioLogo"
               className="h-8"
             />
             {/* Links */}
-            <ul className="flex space-x-4">
+            <ul className="flex flex-wrap space-x-4 justify-center md:justify-start">
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Prensa
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Seguridad
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Legal
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Aviso de Privacidad
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Términos de Servicio
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Asistencia
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Verificar en Línea
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white text-sm">
+                <a href="#" className="text-red-700 hover:text-white text-sm">
                   Accesibilidad
                 </a>
               </li>
@@ -60,35 +60,36 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Redes Sociales */}
-          <div className="flex space-x-4 mt-4 md:mt-0">
+          <div className="flex space-x-4 mt-4 md:mt-0 justify-center">
             <a href="#" className="hover:text-white">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/733/733558.png"
-                alt="Twitter"
-                className="h-6"
+                src="src/assets/youtube.png"
+                alt="youtube"
+                className="w-12 h-12"
               />
             </a>
             <a href="#" className="hover:text-white">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
-                alt="Instagram"
-                className="h-6"
+                src="src/assets/tiktok.png"
+                alt="tiktok"
+                className="w-12 h-12"
               />
             </a>
             <a href="#" className="hover:text-white">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/145/145807.png"
+                src="src/assets/linkidin.png"
                 alt="LinkedIn"
-                className="h-6"
+                className="w-12 h-12"
               />
             </a>
             <a href="#" className="hover:text-white">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
-                alt="YouTube"
-                className="h-6"
+                src="src/assets/instagram.png"
+                alt="instagram"
+                className="w-12 h-12"
               />
             </a>
+            
           </div>
         </div>
 
