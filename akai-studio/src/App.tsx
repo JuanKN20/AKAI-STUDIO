@@ -7,7 +7,7 @@ import Contact from './pages/Contact';
 import Noticias from './pages/Noticias'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Usuarios from './Usuarios';
+import Usuarios from './components/Usuarios';
 
 function App() {
   return (
