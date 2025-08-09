@@ -13,6 +13,6 @@
       "*": ["./*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "db.js"],
   "exclude": ["node_modules"]
 }

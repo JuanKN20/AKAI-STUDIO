@@ -1,1 +1,1 @@
-CREATE DATABASE AkaiStudioDB TEMPLATE template0;
+SELECT * FROM usuarios;
