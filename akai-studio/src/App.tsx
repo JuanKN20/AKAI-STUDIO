@@ -8,6 +8,7 @@ import Noticias from './pages/Noticias'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Usuarios from './components/Usuarios';
+import Trabajos from './pages/Trabajos';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/noticias" element={<Noticias />} />
             <Route path='/usuarios' element ={<Usuarios/>}/>
+            <Route path='/trabajos' element={<Trabajos/>} />
 
           </Routes>
         </main>
