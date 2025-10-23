@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -9,11 +10,16 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-4 ">
           <div className="flex items-center space-x-6">
             {/* Logo */}
-            <img
-              src="src/assets/LogoAkai.png"
-              alt="AkaiStudioLogo"
-              className="h-8"
-            />
+            <Link 
+            to="/home" 
+            onClick={() => window.scrollTo({top:0, behavior: "smooth"})}
+            className='flex items-center justify-center hover:opacity-90 transition'>
+              <img
+                src="/Imagenes/Logo/Logo.png"
+                alt="AkaiStudioLogo"
+                className="h-8"
+              />
+            </Link>
             {/* Links */}
             <ul className="flex flex-wrap space-x-4 justify-center md:justify-start">
               <li>
@@ -89,7 +95,7 @@ const Footer: React.FC = () => {
                 className="w-12 h-12"
               />
             </a>
-            
+
           </div>
         </div>
 

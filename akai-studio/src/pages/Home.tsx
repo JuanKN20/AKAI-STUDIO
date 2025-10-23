@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   return (
     <div className="w-screen min-h-screen flex flex-col items-center bg-gradient-to-b from-black to-gray-900 pt-[150px] overflow-x-hidden">
       {/* Sección con el video de fondo y eslogan */}
-      <section className="relative w-full h-screen flex items-center justify-center">
+      <section className="relative w-full h-screen flex items-center justify-center mt-[0px]">
         {/* Video de fondo */}
         <video
           autoPlay
