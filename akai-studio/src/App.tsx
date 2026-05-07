@@ -9,7 +9,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Usuarios from './components/Usuarios';
 import Trabajos from './pages/Trabajos';
-import ScrollToTop from 'components/ScrollToTop';
+import ScrollToTop from './components/ScrollToTop';
+import Login from './pages/Login'; 
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <ScrollToTop />
       <div className="w-full">
         <Navbar />
-        <main className="w-100vw">
+        <main className="w-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/juegos" element={<Juegos />} />
@@ -27,6 +28,7 @@ function App() {
             <Route path="/noticias" element={<Noticias />} />
             <Route path='/usuarios' element={<Usuarios />} />
             <Route path='/trabajos' element={<Trabajos />} />
+            <Route path="/login" element={<Login />} />
 
           </Routes>
         </main>
