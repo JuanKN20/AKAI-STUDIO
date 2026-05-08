@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 type Project = {
   id: number;
@@ -7,7 +7,7 @@ type Project = {
   description: string;
   tags: string[];
   image: string;
-  status: "Demo interna" | "Caso en desarrollo" | "Próximamente";
+  status: "Demo interna" | "Caso en desarrollo" | "PrÃ³ximamente";
 };
 
 const projects: Project[] = [
@@ -16,7 +16,7 @@ const projects: Project[] = [
     title: "Akai Studio Web",
     category: "Marca / Web / Identidad digital",
     description:
-      "Sitio oficial de Akai Studio, diseñado para presentar la visión, servicios, proyectos y línea creativa del estudio.",
+      "Sitio oficial de Akai Studio, diseÃ±ado para presentar la visiÃ³n, servicios, proyectos y lÃ­nea creativa del estudio.",
     tags: ["React", "Vite", "Tailwind", "UI/UX", "Branding"],
     image: "/images/Logo/Logo.png",
     status: "Demo interna",
@@ -24,9 +24,9 @@ const projects: Project[] = [
   {
     id: 2,
     title: "Kaleido Lab",
-    category: "Desarrollo web / 3D / Gestión colaborativa",
+    category: "Desarrollo web / 3D / GestiÃ³n colaborativa",
     description:
-      "Sistema web para la gestión colaborativa, revisión científica y control de versiones en la producción de modelos 3D.",
+      "Sistema web para la gestiÃ³n colaborativa, revisiÃ³n cientÃ­fica y control de versiones en la producciÃ³n de modelos 3D.",
     tags: ["React", "Node.js", "PostgreSQL", "Prisma", "3D"],
     image: "/images/1013143.png",
     status: "Caso en desarrollo",
@@ -36,7 +36,7 @@ const projects: Project[] = [
     title: "DISSAU Wallet",
     category: "Desarrollo web / Fintech / API",
     description:
-      "Módulo de billetera digital con consulta de saldo, transferencias entre usuarios e historial de movimientos.",
+      "MÃ³dulo de billetera digital con consulta de saldo, transferencias entre usuarios e historial de movimientos.",
     tags: [".NET", "React", "API REST", "Wallet"],
     image: "/images/123.png",
     status: "Caso en desarrollo",
@@ -44,9 +44,9 @@ const projects: Project[] = [
   {
     id: 4,
     title: "EMCALI CMS",
-    category: "CMS / Automatización / Flujo editorial",
+    category: "CMS / AutomatizaciÃ³n / Flujo editorial",
     description:
-      "Sistema de gestión de contenidos con flujo editorial, historial de revisiones, publicación programada y automatización.",
+      "Sistema de gestiÃ³n de contenidos con flujo editorial, historial de revisiones, publicaciÃ³n programada y automatizaciÃ³n.",
     tags: ["React", "CMS", "Node.js", "Editorial Flow"],
     image: "/images/LogoAkai.png",
     status: "Caso en desarrollo",
@@ -56,17 +56,17 @@ const projects: Project[] = [
     title: "Conceptos de videojuegos",
     category: "Game Dev / Prototipos / Experiencias interactivas",
     description:
-      "Exploración de ideas, mecánicas, narrativa visual y prototipos orientados a entretenimiento digital.",
+      "ExploraciÃ³n de ideas, mecÃ¡nicas, narrativa visual y prototipos orientados a entretenimiento digital.",
     tags: ["Game Dev", "Narrativa", "3D", "IA"],
     image: "/images/1013143.png",
-    status: "Próximamente",
+    status: "PrÃ³ximamente",
   },
 ];
 
 const ctaByStatus: Record<Project["status"], string> = {
   "Demo interna": "Demo interna",
   "Caso en desarrollo": "Caso en desarrollo",
-  "Próximamente": "Próximamente",
+  "PrÃ³ximamente": "PrÃ³ximamente",
 };
 
 const Trabajos: React.FC = () => {
@@ -86,7 +86,7 @@ const Trabajos: React.FC = () => {
         {projects.map((project) => (
           <article key={project.id} className="akai-card overflow-hidden">
             <div className="relative">
-              <img src={project.image} alt={project.title} className="h-48 w-full object-cover" />
+              <img src={project.image} alt={project.title} loading="lazy" decoding="async" className="h-48 w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <span className="absolute right-4 top-4 rounded-full border border-red-500/45 bg-black/65 px-3 py-1 text-xs text-red-100">
                 {project.status}
@@ -119,3 +119,4 @@ const Trabajos: React.FC = () => {
 };
 
 export default Trabajos;
+

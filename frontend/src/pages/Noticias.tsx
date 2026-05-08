@@ -1,46 +1,57 @@
-import React from "react";
+﻿import React from "react";
 
 const Noticias: React.FC = () => {
   const noticias = [
     {
       id: 1,
       titulo: "Nuevo lanzamiento",
-      descripcion: "Descubre nuestro ultimo proyecto.",
+      descripcion: "Descubre nuestro último proyecto.",
       imagen: "/images/123.png",
     },
     {
       id: 2,
-      titulo: "Actualizacion importante",
+      titulo: "Actualización importante",
       descripcion: "Mejoras y novedades en desarrollo.",
       imagen: "/images/1013143.png",
     },
     {
       id: 3,
       titulo: "Evento especial",
-      descripcion: "Unete a nuestro evento exclusivo.",
+      descripcion: "Únete a nuestro evento exclusivo.",
       imagen: "/images/LogoAkai.png",
     },
   ];
 
   return (
-    <div className="w-screen min-h-screen flex flex-col items-center bg-gradient-to-b from-black to-gray-900 px-6 pt-[150px] overflow-hidden">
-      <div className="text-center mb-10">
+    <div className="w-full min-h-screen bg-gradient-to-b from-black to-gray-900 px-4 pt-32 pb-12 sm:px-6">
+      <div className="mx-auto mb-10 max-w-7xl text-center">
         <h1 className="text-3xl font-extrabold text-red-500">Noticias</h1>
-        <p className="text-gray-300 mt-2">Mantente informado con las ultimas novedades.</p>
+        <p className="mt-2 text-gray-300">
+          Sección editorial en preparación. El contenido se encuentra en fase interna y aún no hace parte de la navegación principal.
+        </p>
       </div>
 
-      <section className="w-full max-w-screen-lg">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
+      <section className="mx-auto w-full max-w-7xl">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {noticias.map((noticia) => (
             <div
               key={noticia.id}
-              className="bg-gray-800 bg-opacity-40 p-4 rounded-lg shadow-lg text-center border border-gray-600 w-[300px]"
+              className="w-full rounded-lg border border-gray-600 bg-gray-800/40 p-4 text-center shadow-lg"
             >
-              <img src={noticia.imagen} alt={noticia.titulo} className="w-full h-40 object-cover rounded-md" />
-              <h3 className="text-xl font-bold text-white mt-4">{noticia.titulo}</h3>
+              <img
+                src={noticia.imagen}
+                alt={noticia.titulo}
+                loading="lazy"
+                decoding="async"
+                className="h-40 w-full rounded-md object-cover"
+              />
+              <h3 className="mt-4 text-xl font-bold text-white">{noticia.titulo}</h3>
               <p className="text-gray-300">{noticia.descripcion}</p>
-              <button className="mt-4 px-6 py-2 bg-red-700 text-white font-semibold rounded-full text-sm hover:bg-red-900 transition">
-                Leer mas
+              <button
+                type="button"
+                className="mt-4 rounded-full bg-red-700 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-900"
+              >
+                Próximamente
               </button>
             </div>
           ))}

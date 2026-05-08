@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
@@ -84,32 +84,37 @@ const Contact: React.FC = () => {
 
           <form className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
+              <label htmlFor="contact-name" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
                 Nombre
               </label>
               <input
+                id="contact-name"
                 type="text"
+                autoComplete="name"
                 placeholder="Nombre de contacto"
                 className="w-full rounded-xl border border-red-900/35 bg-black/45 px-4 py-3 text-sm text-white outline-none transition focus:border-red-500/70"
               />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
+              <label htmlFor="contact-email" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
                 Correo electrónico
               </label>
               <input
+                id="contact-email"
                 type="email"
+                autoComplete="email"
                 placeholder="correo@empresa.com"
                 className="w-full rounded-xl border border-red-900/35 bg-black/45 px-4 py-3 text-sm text-white outline-none transition focus:border-red-500/70"
               />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
+              <label htmlFor="contact-message" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
                 Mensaje
               </label>
               <textarea
+                id="contact-message"
                 placeholder="Describe tu proyecto"
                 className="h-32 w-full rounded-xl border border-red-900/35 bg-black/45 px-4 py-3 text-sm text-white outline-none transition focus:border-red-500/70"
               />

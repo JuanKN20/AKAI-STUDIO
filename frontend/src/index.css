@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -64,6 +64,11 @@
     text-decoration: none;
     color: inherit;
   }
+
+  :is(a, button, input, textarea, select):focus-visible {
+    outline: 2px solid rgba(255, 59, 92, 0.9);
+    outline-offset: 2px;
+  }
 }
 
 @layer components {
@@ -107,3 +112,4 @@
     @apply h-px w-16 bg-gradient-to-r from-red-500/0 via-red-500/80 to-red-500/0;
   }
 }
+

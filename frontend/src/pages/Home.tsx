@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Link } from "react-router-dom";
 import {
   Boxes,
@@ -92,6 +92,7 @@ const Home: React.FC = () => {
           muted
           loop
           playsInline
+          preload="metadata"
           className="absolute inset-0 -z-20 h-full w-full object-cover opacity-50"
         >
           <source src="/videos/LogoAkai.mp4" type="video/mp4" />

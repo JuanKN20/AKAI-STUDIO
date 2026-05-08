@@ -1,16 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import Juegos from './pages/Juegos';
-import Contact from './pages/Contact';
-import Noticias from './pages/Noticias'
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Usuarios from './components/Usuarios';
-import Trabajos from './pages/Trabajos';
-import ScrollToTop from './components/ScrollToTop';
-import Login from './pages/Login'; 
+﻿import React from "react";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Juegos from "./pages/Juegos";
+import Contact from "./pages/Contact";
+import Noticias from "./pages/Noticias";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Usuarios from "./components/Usuarios";
+import Trabajos from "./pages/Trabajos";
+import ScrollToTop from "./components/ScrollToTop";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -21,15 +21,18 @@ function App() {
         <main className="w-full flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/juegos" element={<Juegos />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/trabajos" element={<Trabajos />} />
+            <Route path="/juegos" element={<Juegos />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/noticias" element={<Noticias />} />
-            <Route path='/usuarios' element={<Usuarios />} />
-            <Route path='/trabajos' element={<Trabajos />} />
-            <Route path="/login" element={<Login />} />
 
+            <Route path="/home" element={<Navigate to="/" replace />} />
+
+            <Route path="/usuarios" element={<Usuarios />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/noticias" element={<Noticias />} />
+
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <Footer />

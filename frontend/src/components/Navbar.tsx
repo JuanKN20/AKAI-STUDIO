@@ -1,9 +1,9 @@
-import React, { useEffect, useId, useState } from "react";
+﻿import React, { useEffect, useId, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { to: "/home", label: "Inicio" },
+  { to: "/", label: "Inicio" },
   { to: "/services", label: "Servicios" },
   { to: "/trabajos", label: "Proyectos" },
   { to: "/juegos", label: "Juegos" },
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-red-900/30 bg-black/60 backdrop-blur-xl">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/home" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <img src="/images/Logo/Logo.png" alt="Akai Studio" className="h-10 w-auto sm:h-11" />
           <div className="hidden md:block">
             <p className="text-xs uppercase tracking-[0.24em] text-red-300/80">Akai Studio</p>
@@ -60,17 +60,11 @@ const Navbar: React.FC = () => {
           ))}
         </div>
 
-        <div className="hidden lg:flex">
-          <Link to="/login" className="akai-btn-secondary px-5 py-2.5">
-            Acceso
-          </Link>
-        </div>
-
         <button
           type="button"
           onClick={() => setOpen(true)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-red-700/40 bg-black/40 text-zinc-100 transition hover:border-red-400/70 hover:bg-red-950/35 lg:hidden"
-          aria-label="Abrir menu"
+          aria-label="Abrir menú"
           aria-haspopup="dialog"
           aria-controls={dialogId}
           aria-expanded={open}
@@ -91,7 +85,7 @@ const Navbar: React.FC = () => {
         id={dialogId}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu de navegacion"
+        aria-label="Menú de navegación"
         className={`fixed right-0 top-0 z-50 h-dvh w-[86vw] max-w-sm border-l border-red-900/40 bg-akai-dark/95 p-6 backdrop-blur-2xl transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
@@ -102,7 +96,7 @@ const Navbar: React.FC = () => {
             type="button"
             onClick={() => setOpen(false)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-red-700/40 bg-black/40 text-zinc-100 transition hover:border-red-400/70 hover:bg-red-950/35"
-            aria-label="Cerrar menu"
+            aria-label="Cerrar menú"
           >
             <X className="h-5 w-5" />
           </button>
@@ -117,12 +111,6 @@ const Navbar: React.FC = () => {
             </li>
           ))}
         </ul>
-
-        <div className="mt-8 border-t border-red-900/35 pt-6">
-          <Link to="/login" className="akai-btn-primary w-full">
-            Acceso interno
-          </Link>
-        </div>
       </aside>
     </header>
   );

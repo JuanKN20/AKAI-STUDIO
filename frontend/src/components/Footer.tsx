@@ -1,10 +1,10 @@
-import React from "react";
+﻿import React from "react";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { Mail } from "lucide-react";
 
 const quickLinks = [
-  { to: "/home", label: "Inicio" },
+  { to: "/", label: "Inicio" },
   { to: "/services", label: "Servicios" },
   { to: "/trabajos", label: "Proyectos" },
   { to: "/juegos", label: "Juegos" },
@@ -20,16 +20,20 @@ const Footer: React.FC = () => {
         <div className="akai-panel p-6 md:p-8">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-4">
-              <img src="/images/Logo/Logo.png" alt="Akai Studio" className="h-12 w-auto" />
+              <img
+                src="/images/Logo/Logo.png"
+                alt="Akai Studio"
+                loading="lazy"
+                decoding="async"
+                className="h-12 w-auto"
+              />
               <p className="text-sm leading-relaxed text-zinc-300">
                 Experiencias digitales, visuales e interactivas.
               </p>
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">
-                Navegación
-              </h3>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">Navegación</h3>
               <ul className="mt-4 space-y-2">
                 {quickLinks.map((item) => (
                   <li key={item.to}>
@@ -42,9 +46,7 @@ const Footer: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">
-                Conectar
-              </h3>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">Conectar</h3>
               <div className="mt-4 flex items-center gap-3">
                 <a
                   href="https://www.youtube.com/channel/UCyPRSLaqSn6jiuHRjz-952g/posts?pvf=CAE%253D"
