@@ -30,6 +30,11 @@ Variables requeridas:
 - `ADMIN_API_TOKEN`
 - `PORT`
 
+Nota CORS en producción:
+
+- `FRONTEND_ORIGIN` acepta múltiples orígenes separados por coma.
+- Ejemplo: `FRONTEND_ORIGIN=https://akai-studio.juann200213.workers.dev,http://localhost:5173,http://localhost:5174`
+
 ### Supabase + Prisma
 
 - `DATABASE_URL`: conexión con pooling (PgBouncer), recomendada para runtime de la API.

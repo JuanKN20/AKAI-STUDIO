@@ -16,7 +16,7 @@ const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
-const configuredOrigins = (process.env.FRONTEND_ORIGIN || '')
+const allowedOrigins = (process.env.FRONTEND_ORIGIN || '')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -27,20 +27,19 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    // In local development, allow requests if FRONTEND_ORIGIN is not set.
-    if (configuredOrigins.length === 0 && process.env.NODE_ENV !== 'production') {
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    if (configuredOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error(`Origin not allowed by CORS: ${origin}`));
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
   },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-admin-token'],
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
 
 app.get('/api/health', (req, res) => {
@@ -90,11 +89,8 @@ async function startServer() {
   }
 
   serverInstance = app.listen(safePort, () => {
-    const originSummary =
-      configuredOrigins.length > 0 ? configuredOrigins.join(', ') : 'not set (open only for local development)';
-
     console.log(`[server] Yorurei Studio API listening on port ${safePort}`);
-    console.log(`[server] CORS FRONTEND_ORIGIN: ${originSummary}`);
+    console.log('[server] Allowed CORS origins:', allowedOrigins);
   });
 }
 

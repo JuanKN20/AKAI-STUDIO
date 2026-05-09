@@ -16,6 +16,11 @@ Variables de entorno obligatorias:
 - `ADMIN_API_TOKEN`
 - `PORT` (si la plataforma lo solicita)
 
+Nota CORS:
+
+- `FRONTEND_ORIGIN` puede incluir múltiples URLs separadas por coma.
+- Ejemplo: `FRONTEND_ORIGIN=https://akai-studio.juann200213.workers.dev,http://localhost:5173,http://localhost:5174`
+
 ## 2) Base de datos cloud (Supabase / Neon / Render Postgres)
 
 Para Supabase:
