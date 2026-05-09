@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://yorurei-studio-backend1.onrender.com";
 const DEFAULT_TIMEOUT_MS = 8000;
 
 type ApiSuccess<T> = {
