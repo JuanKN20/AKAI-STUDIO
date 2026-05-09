@@ -15,7 +15,7 @@ import ServicesCarousel from "../components/ServicesCarousel";
 
 const chips = [
   "Videojuegos",
-  "Animación",
+  "AnimaciÃ³n",
   "Desarrollo Web",
   "Modelado 3D",
   "Inteligencia Artificial",
@@ -25,7 +25,7 @@ const chips = [
 const areas = [
   {
     title: "Desarrollo de videojuegos",
-    description: "Conceptos, prototipos y productos jugables con narrativa, arte y tecnología.",
+    description: "Conceptos, prototipos y productos jugables con narrativa, arte y tecnologÃ­a.",
     icon: Gamepad2,
   },
   {
@@ -34,41 +34,41 @@ const areas = [
     icon: Code2,
   },
   {
-    title: "Animación 2D/3D",
+    title: "AnimaciÃ³n 2D/3D",
     description: "Storytelling visual para marcas, productos y experiencias multimedia.",
     icon: Clapperboard,
   },
   {
-    title: "Modelado y visualización 3D",
+    title: "Modelado y visualizaciÃ³n 3D",
     description: "Assets, personajes y escenas para entretenimiento y soluciones digitales.",
     icon: Boxes,
   },
   {
     title: "Inteligencia artificial",
-    description: "Automatización, asistentes y experiencias inteligentes para nuevos productos.",
+    description: "AutomatizaciÃ³n, asistentes y experiencias inteligentes para nuevos productos.",
     icon: Cpu,
   },
   {
     title: "Experiencias interactivas",
-    description: "Integración de arte, tecnología e interacción para resultados memorables.",
+    description: "IntegraciÃ³n de arte, tecnologÃ­a e interacciÃ³n para resultados memorables.",
     icon: Sparkles,
   },
   {
     title: "Branding y contenido digital",
-    description: "Identidad visual y comunicación multimedia con enfoque estratégico.",
+    description: "Identidad visual y comunicaciÃ³n multimedia con enfoque estratÃ©gico.",
     icon: Palette,
   },
 ];
 
 const differentiators = [
   {
-    title: "Creatividad con enfoque técnico",
-    description: "Diseñamos soluciones visuales con base sólida en arquitectura y desarrollo.",
+    title: "Creatividad con enfoque tÃ©cnico",
+    description: "DiseÃ±amos soluciones visuales con base sÃ³lida en arquitectura y desarrollo.",
     icon: Zap,
   },
   {
     title: "Experiencias visualmente impactantes",
-    description: "Construimos productos con identidad estética fuerte y coherencia de marca.",
+    description: "Construimos productos con identidad estÃ¡tica fuerte y coherencia de marca.",
     icon: Sparkles,
   },
   {
@@ -77,8 +77,8 @@ const differentiators = [
     icon: Target,
   },
   {
-    title: "Integración de arte, tecnología e innovación",
-    description: "Unimos dirección creativa y ejecución técnica para producir experiencias premium.",
+    title: "IntegraciÃ³n de arte, tecnologÃ­a e innovaciÃ³n",
+    description: "Unimos direcciÃ³n creativa y ejecuciÃ³n tÃ©cnica para producir experiencias premium.",
     icon: Cpu,
   },
 ];
@@ -106,7 +106,7 @@ const Home: React.FC = () => {
               <div className="flex items-center gap-3">
                 <div className="akai-hud-line" />
                 <span className="text-xs uppercase tracking-[0.24em] text-red-300">
-                  Estudio creativo y tecnológico
+                  Estudio creativo y tecnolÃ³gico
                 </span>
               </div>
 
@@ -118,8 +118,8 @@ const Home: React.FC = () => {
                   Creamos experiencias digitales, visuales e interactivas.
                 </p>
                 <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-                  Somos un estudio creativo y tecnológico enfocado en desarrollo web, videojuegos,
-                  animación, modelado 3D e inteligencia artificial. Transformamos ideas en
+                  Somos un estudio creativo y tecnolÃ³gico enfocado en desarrollo web, videojuegos,
+                  animaciÃ³n, modelado 3D e inteligencia artificial. Transformamos ideas en
                   proyectos visualmente impactantes, funcionales y memorables.
                 </p>
               </div>
@@ -150,19 +150,19 @@ const Home: React.FC = () => {
 
             <div className="space-y-4">
               <article className="akai-card p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-red-300">Misión</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-red-300">MisiÃ³n</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ofrecer soluciones creativas e innovadoras en animación, videojuegos, desarrollo
-                  web, modelado 3D e inteligencia artificial, diseñadas para resolver necesidades
+                  Ofrecer soluciones creativas e innovadoras en animaciÃ³n, videojuegos, desarrollo
+                  web, modelado 3D e inteligencia artificial, diseÃ±adas para resolver necesidades
                   de clientes y crear entretenimiento de alta calidad.
                 </p>
               </article>
               <article className="akai-card p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-red-300">Visión</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-red-300">VisiÃ³n</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ser un estudio referente en la creación de experiencias innovadoras y visualmente
-                  impactantes, destacando por calidad, creatividad, pasión, innovación y uso de
-                  tecnologías de vanguardia.
+                  Ser un estudio referente en la creaciÃ³n de experiencias innovadoras y visualmente
+                  impactantes, destacando por calidad, creatividad, pasiÃ³n, innovaciÃ³n y uso de
+                  tecnologÃ­as de vanguardia.
                 </p>
               </article>
             </div>
@@ -173,11 +173,11 @@ const Home: React.FC = () => {
       <section className="akai-page pt-8 md:pt-10">
         <div className="flex items-center gap-3">
           <div className="akai-hud-line" />
-          <p className="text-xs uppercase tracking-[0.24em] text-red-300">Qué hacemos</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-red-300">QuÃ© hacemos</p>
         </div>
-        <h2 className="akai-section-title mt-3">Líneas de negocio de Yorurei Studio</h2>
+        <h2 className="akai-section-title mt-3">LÃ­neas de negocio de Yorurei Studio</h2>
         <p className="akai-section-subtitle">
-          Integramos tecnología, creatividad y producción multimedia para construir soluciones
+          Integramos tecnologÃ­a, creatividad y producciÃ³n multimedia para construir soluciones
           digitales con identidad y alto impacto visual.
         </p>
 
@@ -199,7 +199,7 @@ const Home: React.FC = () => {
           <div className="akai-hud-line" />
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Diferenciales</p>
         </div>
-        <h2 className="akai-section-title mt-3">Por qué Yorurei Studio</h2>
+        <h2 className="akai-section-title mt-3">Por qu? Yorurei Studio</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {differentiators.map((item) => (
             <article key={item.title} className="akai-card p-6">
@@ -220,12 +220,12 @@ const Home: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Siguiente paso</p>
           <h2 className="mt-3 text-2xl md:text-3xl font-bold text-white">Hablemos de tu proyecto</h2>
           <p className="mt-3 max-w-3xl mx-auto text-sm md:text-base text-zinc-300">
-            Si estás construyendo una marca, producto o experiencia digital, en Yorurei Studio
-            podemos ayudarte a diseñarlo y desarrollarlo con un enfoque creativo y tecnológico.
+            Si estÃ¡s construyendo una marca, producto o experiencia digital, en Yorurei Studio
+            podemos ayudarte a diseÃ±arlo y desarrollarlo con un enfoque creativo y tecnolÃ³gico.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/contact" className="akai-btn-primary">
-              Iniciar conversación
+              Iniciar conversaciÃ³n
             </Link>
             <Link to="/services" className="akai-btn-secondary">
               Revisar servicios

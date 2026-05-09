@@ -184,7 +184,7 @@ async function adminRequest<T>(
 export async function validateAdminToken(token: string): Promise<void> {
   const cleanToken = token.trim();
   if (!cleanToken) {
-    throw new Error('Debes ingresar un token admin.');
+    throw new Error('Debes ingresar el token admin.');
   }
 
   await adminRequest<ProjectItem[]>('/api/admin/projects', { method: 'GET' }, cleanToken);

@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">Navegación</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">NavegaciÃ³n</h3>
               <ul className="mt-4 space-y-2">
                 {quickLinks.map((item) => (
                   <li key={item.to}>
@@ -78,8 +78,8 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 border-t border-red-900/30 pt-5 text-xs text-zinc-400 md:flex-row md:items-center md:justify-between">
-            <p>© {year} Yorurei Studio. Todos los derechos reservados.</p>
-            <p>Empresa creativa y tecnológica en desarrollo.</p>
+            <p>Â© {year} Yorurei Studio. Todos los derechos reservados.</p>
+            <p>Empresa creativa y tecnolÃ³gica en desarrollo.</p>
           </div>
         </div>
       </div>

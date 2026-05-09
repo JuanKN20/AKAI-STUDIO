@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
           type="button"
           onClick={() => setOpen(true)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-red-700/40 bg-black/40 text-zinc-100 transition hover:border-red-400/70 hover:bg-red-950/35 lg:hidden"
-          aria-label="Abrir menú"
+          aria-label="Abrir menÃº"
           aria-haspopup="dialog"
           aria-controls={dialogId}
           aria-expanded={open}
@@ -85,18 +85,18 @@ const Navbar: React.FC = () => {
         id={dialogId}
         role="dialog"
         aria-modal="true"
-        aria-label="Menú de navegación"
+        aria-label="MenÃº de navegaciÃ³n"
         className={`fixed right-0 top-0 z-50 h-dvh w-[86vw] max-w-sm border-l border-red-900/40 bg-akai-dark/95 p-6 backdrop-blur-2xl transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="mb-8 flex items-center justify-between">
-          <p className="text-sm uppercase tracking-[0.2em] text-red-200/85">Navegación</p>
+          <p className="text-sm uppercase tracking-[0.2em] text-red-200/85">NavegaciÃ³n</p>
           <button
             type="button"
             onClick={() => setOpen(false)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-red-700/40 bg-black/40 text-zinc-100 transition hover:border-red-400/70 hover:bg-red-950/35"
-            aria-label="Cerrar menú"
+            aria-label="Cerrar menÃº"
           >
             <X className="h-5 w-5" />
           </button>

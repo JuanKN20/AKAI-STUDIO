@@ -119,4 +119,3 @@ const Trabajos: React.FC = () => {
 };
 
 export default Trabajos;
-

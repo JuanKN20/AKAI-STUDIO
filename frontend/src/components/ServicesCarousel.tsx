@@ -16,14 +16,14 @@ const services: ServiceItem[] = [
     id: 1,
     title: "Desarrollo de videojuegos",
     description:
-      "Creamos prototipos y experiencias jugables donde se combinan narrativa, arte y tecnología.",
+      "Creamos prototipos y experiencias jugables donde se combinan narrativa, arte y tecnologÃ­a.",
     video: "/videos/videojuegos.mp4",
     link: "/juegos",
-    cta: "Explorar división de juegos",
+    cta: "Explorar divisiÃ³n de juegos",
   },
   {
     id: 2,
-    title: "Animación y modelado 3D",
+    title: "AnimaciÃ³n y modelado 3D",
     description:
       "Desarrollamos piezas visuales, personajes y escenas para contenido, marca y entretenimiento.",
     video: "/videos/animacion.mp4",
@@ -43,7 +43,7 @@ const services: ServiceItem[] = [
     id: 4,
     title: "Soluciones interactivas e IA",
     description:
-      "Exploramos automatización y experiencias inteligentes para nuevas líneas de producto.",
+      "Exploramos automatizaciÃ³n y experiencias inteligentes para nuevas lÃ­neas de producto.",
     video: "/videos/modelado.mp4",
     link: "/contact",
     cta: "Hablar con Yorurei Studio",
@@ -97,7 +97,7 @@ const ServicesCarousel: React.FC = () => {
 
         <div className="absolute inset-0 flex items-end p-5 sm:p-8 md:p-10">
           <div className="max-w-xl space-y-4 rounded-2xl border border-red-700/30 bg-black/40 p-5 backdrop-blur-md md:p-6">
-            <p className="text-xs uppercase tracking-[0.24em] text-red-200">Línea de negocio</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-red-200">LÃ­nea de negocio</p>
             <h3 className="text-2xl font-bold text-white md:text-3xl">{currentService.title}</h3>
             <p className="text-sm leading-relaxed text-zinc-200 md:text-base">{currentService.description}</p>
             <button
