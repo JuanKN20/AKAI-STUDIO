@@ -1,6 +1,6 @@
-# Yorurei Studio Backend
+﻿# Yorurei Studio Backend
 
-API backend en Node.js + Express + Prisma para gestionar contenido dinámico de Yorurei Studio:
+API backend en Node.js + Express + Prisma para gestionar contenido de Yorurei Studio:
 
 - proyectos
 - servicios
@@ -24,10 +24,18 @@ Copy-Item .env.example .env
 
 Variables requeridas:
 
-- `PORT`
 - `DATABASE_URL`
+- `DIRECT_URL`
 - `FRONTEND_ORIGIN`
 - `ADMIN_API_TOKEN`
+- `PORT`
+
+### Supabase + Prisma
+
+- `DATABASE_URL`: conexión con pooling (PgBouncer), recomendada para runtime de la API.
+- `DIRECT_URL`: conexión directa, usada por Prisma para migraciones/comandos de schema.
+- En Render/Railway debes configurar **ambas** variables.
+- Nunca subas contraseñas reales al repositorio.
 
 ## Flujo local recomendado (PowerShell)
 
@@ -100,36 +108,20 @@ npm run dev
 - `GET /api/products/:slug`
 - `POST /api/contacts`
 
-Filtros:
-
-- `GET /api/projects?status=published&featured=true`
-- `GET /api/products?status=published&featured=true&type=template`
-
 ## Endpoints admin (x-admin-token)
-
-Projects:
 
 - `GET /api/admin/projects`
 - `POST /api/admin/projects`
 - `PUT /api/admin/projects/:id`
 - `DELETE /api/admin/projects/:id`
-
-Services:
-
 - `GET /api/admin/services`
 - `POST /api/admin/services`
 - `PUT /api/admin/services/:id`
 - `DELETE /api/admin/services/:id`
-
-Products:
-
 - `GET /api/admin/products`
 - `POST /api/admin/products`
 - `PUT /api/admin/products/:id`
 - `DELETE /api/admin/products/:id`
-
-Contacts:
-
 - `GET /api/admin/contacts`
 - `PUT /api/admin/contacts/:id/status`
 
@@ -143,38 +135,28 @@ x-admin-token: <ADMIN_API_TOKEN>
 
 Configuración sugerida:
 
-- **Build command**: `npm install && npx prisma generate`
-- **Start command**: `npm run start`
-- **Post-deploy / migrate command**: `npx prisma migrate deploy`
+- Build command: `npm install && npx prisma generate`
+- Start command: `npm run start`
+- Post-deploy / migrate command: `npx prisma migrate deploy`
 
 Variables de entorno requeridas:
 
 - `DATABASE_URL`
+- `DIRECT_URL`
 - `FRONTEND_ORIGIN`
 - `ADMIN_API_TOKEN`
-- `PORT` (si la plataforma lo requiere explícitamente)
+- `PORT` (si la plataforma lo requiere)
 
 Pasos sugeridos:
 
 1. Crear la base de datos cloud (Supabase / Neon / Render Postgres).
-2. Copiar `DATABASE_URL` de la base cloud.
-3. Crear el servicio backend (root directory: `backend`).
+2. Copiar `DATABASE_URL` (pooling) y `DIRECT_URL` (directa).
+3. Crear el servicio backend con root directory `backend`.
 4. Configurar variables de entorno del servicio.
 5. Ejecutar migraciones con `npx prisma migrate deploy`.
 6. Ejecutar seed si aplica (`npm run prisma:seed`).
 7. Probar `GET /api/health`.
 8. Actualizar frontend Cloudflare con `VITE_API_BASE_URL=https://URL-DEL-BACKEND`.
-
-## Prisma en producción
-
-- `schema.prisma` usa provider `postgresql`.
-- Migraciones existentes se aplican con `prisma migrate deploy`.
-- `prisma/seed.js` usa `upsert`, por lo que es idempotente para los registros principales.
-- Recomendación: ejecutar seed solo cuando sea necesario para datos iniciales.
-
-## Nota de seguridad
-
-La protección actual por `x-admin-token` es una capa mínima. Antes de producción final se recomienda implementar autenticación/autorización real (usuarios, sesiones/JWT, roles, rotación de credenciales y auditoría).
 
 ## SQL legacy
 
