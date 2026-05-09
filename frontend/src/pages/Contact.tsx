@@ -1,4 +1,4 @@
-ï»¿import React from "react";
+import React from "react";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
@@ -9,10 +9,10 @@ const Contact: React.FC = () => {
         <div className="akai-hud-line" />
         <p className="text-xs uppercase tracking-[0.24em] text-red-300">Contacto</p>
       </div>
-      <h1 className="akai-section-title mt-3">Conversemos sobre tu prÃ³ximo proyecto</h1>
+      <h1 className="akai-section-title mt-3">Conversemos sobre tu próximo proyecto</h1>
       <p className="akai-section-subtitle">
-        Â¿Tienes una idea, proyecto o experiencia digital en mente? En Akai Studio podemos ayudarte
-        a convertirla en una soluciÃ³n visual, interactiva y funcional.
+        ¿Tienes una idea, proyecto o experiencia digital en mente? En Yorurei Studio podemos ayudarte
+        a convertirla en una solución visual, interactiva y funcional.
       </p>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
@@ -21,7 +21,7 @@ const Contact: React.FC = () => {
           <div className="mt-5 space-y-4 text-sm text-zinc-300">
             <p className="flex items-center gap-3">
               <Mail className="h-4 w-4 text-red-300" />
-              contacto@akai-studio.dev
+              contacto@yorurei-studio.dev
             </p>
             <p className="flex items-center gap-3">
               <Phone className="h-4 w-4 text-red-300" />
@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
               Iniciar proyecto
             </button>
             <button type="button" className="akai-btn-secondary w-full">
-              Solicitar informaciÃ³n
+              Solicitar información
             </button>
           </div>
 
@@ -98,7 +98,7 @@ const Contact: React.FC = () => {
 
             <div>
               <label htmlFor="contact-email" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-zinc-300">
-                Correo electrÃ³nico
+                Correo electrónico
               </label>
               <input
                 id="contact-email"
@@ -127,7 +127,7 @@ const Contact: React.FC = () => {
           </form>
 
           <p className="mt-4 text-xs text-zinc-400">
-            Nota: este formulario es visual y aÃºn no estÃ¡ integrado con backend en esta fase.
+            Nota: este formulario es visual y aún no está integrado con backend en esta fase.
           </p>
         </section>
       </div>

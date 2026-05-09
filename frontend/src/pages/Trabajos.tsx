@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 
 type Project = {
   id: number;
@@ -7,16 +7,16 @@ type Project = {
   description: string;
   tags: string[];
   image: string;
-  status: "Demo interna" | "Caso en desarrollo" | "PrÃ³ximamente";
+  status: "Demo interna" | "Caso en desarrollo" | "Próximamente";
 };
 
 const projects: Project[] = [
   {
     id: 1,
-    title: "Akai Studio Web",
+    title: "Yorurei Studio Web",
     category: "Marca / Web / Identidad digital",
     description:
-      "Sitio oficial de Akai Studio, diseÃ±ado para presentar la visiÃ³n, servicios, proyectos y lÃ­nea creativa del estudio.",
+      "Sitio oficial de Yorurei Studio, diseñado para presentar la visión, servicios, proyectos y línea creativa del estudio.",
     tags: ["React", "Vite", "Tailwind", "UI/UX", "Branding"],
     image: "/images/Logo/Logo.png",
     status: "Demo interna",
@@ -24,9 +24,9 @@ const projects: Project[] = [
   {
     id: 2,
     title: "Kaleido Lab",
-    category: "Desarrollo web / 3D / GestiÃ³n colaborativa",
+    category: "Desarrollo web / 3D / Gestión colaborativa",
     description:
-      "Sistema web para la gestiÃ³n colaborativa, revisiÃ³n cientÃ­fica y control de versiones en la producciÃ³n de modelos 3D.",
+      "Sistema web para la gestión colaborativa, revisión científica y control de versiones en la producción de modelos 3D.",
     tags: ["React", "Node.js", "PostgreSQL", "Prisma", "3D"],
     image: "/images/1013143.png",
     status: "Caso en desarrollo",
@@ -36,7 +36,7 @@ const projects: Project[] = [
     title: "DISSAU Wallet",
     category: "Desarrollo web / Fintech / API",
     description:
-      "MÃ³dulo de billetera digital con consulta de saldo, transferencias entre usuarios e historial de movimientos.",
+      "Módulo de billetera digital con consulta de saldo, transferencias entre usuarios e historial de movimientos.",
     tags: [".NET", "React", "API REST", "Wallet"],
     image: "/images/123.png",
     status: "Caso en desarrollo",
@@ -44,9 +44,9 @@ const projects: Project[] = [
   {
     id: 4,
     title: "EMCALI CMS",
-    category: "CMS / AutomatizaciÃ³n / Flujo editorial",
+    category: "CMS / Automatización / Flujo editorial",
     description:
-      "Sistema de gestiÃ³n de contenidos con flujo editorial, historial de revisiones, publicaciÃ³n programada y automatizaciÃ³n.",
+      "Sistema de gestión de contenidos con flujo editorial, historial de revisiones, publicación programada y automatización.",
     tags: ["React", "CMS", "Node.js", "Editorial Flow"],
     image: "/images/LogoAkai.png",
     status: "Caso en desarrollo",
@@ -56,17 +56,17 @@ const projects: Project[] = [
     title: "Conceptos de videojuegos",
     category: "Game Dev / Prototipos / Experiencias interactivas",
     description:
-      "ExploraciÃ³n de ideas, mecÃ¡nicas, narrativa visual y prototipos orientados a entretenimiento digital.",
+      "Exploración de ideas, mecánicas, narrativa visual y prototipos orientados a entretenimiento digital.",
     tags: ["Game Dev", "Narrativa", "3D", "IA"],
     image: "/images/1013143.png",
-    status: "PrÃ³ximamente",
+    status: "Próximamente",
   },
 ];
 
 const ctaByStatus: Record<Project["status"], string> = {
   "Demo interna": "Demo interna",
   "Caso en desarrollo": "Caso en desarrollo",
-  "PrÃ³ximamente": "PrÃ³ximamente",
+  "Próximamente": "Próximamente",
 };
 
 const Trabajos: React.FC = () => {
@@ -78,7 +78,7 @@ const Trabajos: React.FC = () => {
       </div>
       <h1 className="akai-section-title mt-3">Casos y proyectos representativos</h1>
       <p className="akai-section-subtitle">
-        Presentamos proyectos representativos de Akai Studio en desarrollo web, contenido digital,
+        Presentamos proyectos representativos de Yorurei Studio en desarrollo web, contenido digital,
         experiencias interactivas y soluciones visuales de alto impacto.
       </p>
 

@@ -1,0 +1,19 @@
+name: yorurei-studio
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: yorurei_studio_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yorurei
+      POSTGRES_PASSWORD: yorurei_local_2026
+      POSTGRES_DB: yorurei_studio
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    name: yorurei_studio_postgres_data

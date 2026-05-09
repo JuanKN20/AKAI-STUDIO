@@ -13,6 +13,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import Login from "./pages/Login";
 
 function App() {
+  const showInternalRoutes = import.meta.env.VITE_SHOW_INTERNAL_ROUTES === "true";
+
   return (
     <Router>
       <ScrollToTop />
@@ -28,9 +30,9 @@ function App() {
 
             <Route path="/home" element={<Navigate to="/" replace />} />
 
-            <Route path="/usuarios" element={<Usuarios />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/noticias" element={<Noticias />} />
+            <Route path="/usuarios" element={showInternalRoutes ? <Usuarios /> : <Navigate to="/" replace />} />
+            <Route path="/login" element={showInternalRoutes ? <Login /> : <Navigate to="/" replace />} />
+            <Route path="/noticias" element={showInternalRoutes ? <Noticias /> : <Navigate to="/" replace />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

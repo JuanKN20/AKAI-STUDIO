@@ -1,4 +1,4 @@
-ï»¿import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { Mail } from "lucide-react";
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             <div className="space-y-4">
               <img
                 src="/images/Logo/Logo.png"
-                alt="Akai Studio"
+                alt="Yorurei Studio"
                 loading="lazy"
                 decoding="async"
                 className="h-12 w-auto"
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">NavegaciÃ³n</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-red-300">Navegación</h3>
               <ul className="mt-4 space-y-2">
                 {quickLinks.map((item) => (
                   <li key={item.to}>
@@ -72,14 +72,14 @@ const Footer: React.FC = () => {
               </div>
               <p className="mt-4 flex items-center gap-2 text-sm text-zinc-300">
                 <Mail className="h-4 w-4 text-red-300" />
-                contacto@akai-studio.dev
+                contacto@yorurei-studio.dev
               </p>
             </div>
           </div>
 
           <div className="mt-8 flex flex-col gap-3 border-t border-red-900/30 pt-5 text-xs text-zinc-400 md:flex-row md:items-center md:justify-between">
-            <p>Â© {year} Akai Studio. Todos los derechos reservados.</p>
-            <p>Empresa creativa y tecnolÃ³gica en desarrollo.</p>
+            <p>© {year} Yorurei Studio. Todos los derechos reservados.</p>
+            <p>Empresa creativa y tecnológica en desarrollo.</p>
           </div>
         </div>
       </div>

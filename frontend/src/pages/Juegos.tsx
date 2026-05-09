@@ -42,9 +42,9 @@ const Juegos: React.FC = () => {
         <div className="akai-hud-line" />
         <p className="text-xs uppercase tracking-[0.24em] text-red-300">Game Division</p>
       </div>
-      <h1 className="akai-section-title mt-3">Desarrollo de videojuegos en Akai Studio</h1>
+      <h1 className="akai-section-title mt-3">Desarrollo de videojuegos en Yorurei Studio</h1>
       <p className="akai-section-subtitle">
-        En Akai Studio exploramos el desarrollo de videojuegos como una forma de unir narrativa,
+        En Yorurei Studio exploramos el desarrollo de videojuegos como una forma de unir narrativa,
         arte, tecnología e interacción. Creamos conceptos, prototipos y experiencias jugables
         pensadas para entretener, emocionar y construir mundos memorables.
       </p>
@@ -69,7 +69,7 @@ const Juegos: React.FC = () => {
             jugables con identidad visual y enfoque técnico.
           </p>
           <Link to="/contact" className="mt-6 akai-btn-primary">
-            Desarrolla tu idea con Akai Studio
+            Desarrolla tu idea con Yorurei Studio
           </Link>
         </div>
       </section>

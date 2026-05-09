@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://akai-studio.pages.dev/sitemap.xml
+# Dominio final pendiente: reemplazar yorurei-studio.example por el dominio oficial
+Sitemap: https://yorurei-studio.example/sitemap.xml

@@ -1,4 +1,4 @@
-Ôªøimport React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
   Boxes,
@@ -15,7 +15,7 @@ import ServicesCarousel from "../components/ServicesCarousel";
 
 const chips = [
   "Videojuegos",
-  "Animaci√≥n",
+  "AnimaciÛn",
   "Desarrollo Web",
   "Modelado 3D",
   "Inteligencia Artificial",
@@ -25,7 +25,7 @@ const chips = [
 const areas = [
   {
     title: "Desarrollo de videojuegos",
-    description: "Conceptos, prototipos y productos jugables con narrativa, arte y tecnolog√≠a.",
+    description: "Conceptos, prototipos y productos jugables con narrativa, arte y tecnologÌa.",
     icon: Gamepad2,
   },
   {
@@ -34,41 +34,41 @@ const areas = [
     icon: Code2,
   },
   {
-    title: "Animaci√≥n 2D/3D",
+    title: "AnimaciÛn 2D/3D",
     description: "Storytelling visual para marcas, productos y experiencias multimedia.",
     icon: Clapperboard,
   },
   {
-    title: "Modelado y visualizaci√≥n 3D",
+    title: "Modelado y visualizaciÛn 3D",
     description: "Assets, personajes y escenas para entretenimiento y soluciones digitales.",
     icon: Boxes,
   },
   {
     title: "Inteligencia artificial",
-    description: "Automatizaci√≥n, asistentes y experiencias inteligentes para nuevos productos.",
+    description: "AutomatizaciÛn, asistentes y experiencias inteligentes para nuevos productos.",
     icon: Cpu,
   },
   {
     title: "Experiencias interactivas",
-    description: "Integraci√≥n de arte, tecnolog√≠a e interacci√≥n para resultados memorables.",
+    description: "IntegraciÛn de arte, tecnologÌa e interacciÛn para resultados memorables.",
     icon: Sparkles,
   },
   {
     title: "Branding y contenido digital",
-    description: "Identidad visual y comunicaci√≥n multimedia con enfoque estrat√©gico.",
+    description: "Identidad visual y comunicaciÛn multimedia con enfoque estratÈgico.",
     icon: Palette,
   },
 ];
 
 const differentiators = [
   {
-    title: "Creatividad con enfoque t√©cnico",
-    description: "Dise√±amos soluciones visuales con base s√≥lida en arquitectura y desarrollo.",
+    title: "Creatividad con enfoque tÈcnico",
+    description: "DiseÒamos soluciones visuales con base sÛlida en arquitectura y desarrollo.",
     icon: Zap,
   },
   {
     title: "Experiencias visualmente impactantes",
-    description: "Construimos productos con identidad est√©tica fuerte y coherencia de marca.",
+    description: "Construimos productos con identidad estÈtica fuerte y coherencia de marca.",
     icon: Sparkles,
   },
   {
@@ -77,8 +77,8 @@ const differentiators = [
     icon: Target,
   },
   {
-    title: "Integraci√≥n de arte, tecnolog√≠a e innovaci√≥n",
-    description: "Unimos direcci√≥n creativa y ejecuci√≥n t√©cnica para producir experiencias premium.",
+    title: "IntegraciÛn de arte, tecnologÌa e innovaciÛn",
+    description: "Unimos direcciÛn creativa y ejecuciÛn tÈcnica para producir experiencias premium.",
     icon: Cpu,
   },
 ];
@@ -106,20 +106,20 @@ const Home: React.FC = () => {
               <div className="flex items-center gap-3">
                 <div className="akai-hud-line" />
                 <span className="text-xs uppercase tracking-[0.24em] text-red-300">
-                  Estudio creativo y tecnol√≥gico
+                  Estudio creativo y tecnolÛgico
                 </span>
               </div>
 
               <div>
                 <h1 className="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">
-                  Akai Studio
+                  Yorurei Studio
                 </h1>
                 <p className="mt-4 text-lg text-red-200 sm:text-xl">
                   Creamos experiencias digitales, visuales e interactivas.
                 </p>
                 <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-                  Somos un estudio creativo y tecnol√≥gico enfocado en desarrollo web, videojuegos,
-                  animaci√≥n, modelado 3D e inteligencia artificial. Transformamos ideas en
+                  Somos un estudio creativo y tecnolÛgico enfocado en desarrollo web, videojuegos,
+                  animaciÛn, modelado 3D e inteligencia artificial. Transformamos ideas en
                   proyectos visualmente impactantes, funcionales y memorables.
                 </p>
               </div>
@@ -150,19 +150,19 @@ const Home: React.FC = () => {
 
             <div className="space-y-4">
               <article className="akai-card p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-red-300">Misi√≥n</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-red-300">MisiÛn</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ofrecer soluciones creativas e innovadoras en animaci√≥n, videojuegos, desarrollo
-                  web, modelado 3D e inteligencia artificial, dise√±adas para resolver necesidades
+                  Ofrecer soluciones creativas e innovadoras en animaciÛn, videojuegos, desarrollo
+                  web, modelado 3D e inteligencia artificial, diseÒadas para resolver necesidades
                   de clientes y crear entretenimiento de alta calidad.
                 </p>
               </article>
               <article className="akai-card p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-red-300">Visi√≥n</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-red-300">VisiÛn</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ser un estudio referente en la creaci√≥n de experiencias innovadoras y visualmente
-                  impactantes, destacando por calidad, creatividad, pasi√≥n, innovaci√≥n y uso de
-                  tecnolog√≠as de vanguardia.
+                  Ser un estudio referente en la creaciÛn de experiencias innovadoras y visualmente
+                  impactantes, destacando por calidad, creatividad, pasiÛn, innovaciÛn y uso de
+                  tecnologÌas de vanguardia.
                 </p>
               </article>
             </div>
@@ -173,11 +173,11 @@ const Home: React.FC = () => {
       <section className="akai-page pt-8 md:pt-10">
         <div className="flex items-center gap-3">
           <div className="akai-hud-line" />
-          <p className="text-xs uppercase tracking-[0.24em] text-red-300">Qu√© hacemos</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-red-300">QuÈ hacemos</p>
         </div>
-        <h2 className="akai-section-title mt-3">L√≠neas de negocio de Akai Studio</h2>
+        <h2 className="akai-section-title mt-3">LÌneas de negocio de Yorurei Studio</h2>
         <p className="akai-section-subtitle">
-          Integramos tecnolog√≠a, creatividad y producci√≥n multimedia para construir soluciones
+          Integramos tecnologÌa, creatividad y producciÛn multimedia para construir soluciones
           digitales con identidad y alto impacto visual.
         </p>
 
@@ -199,7 +199,7 @@ const Home: React.FC = () => {
           <div className="akai-hud-line" />
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Diferenciales</p>
         </div>
-        <h2 className="akai-section-title mt-3">Por qu√© Akai Studio</h2>
+        <h2 className="akai-section-title mt-3">Por quÈ Yorurei Studio</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {differentiators.map((item) => (
             <article key={item.title} className="akai-card p-6">
@@ -220,12 +220,12 @@ const Home: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Siguiente paso</p>
           <h2 className="mt-3 text-2xl md:text-3xl font-bold text-white">Hablemos de tu proyecto</h2>
           <p className="mt-3 max-w-3xl mx-auto text-sm md:text-base text-zinc-300">
-            Si est√°s construyendo una marca, producto o experiencia digital, en Akai Studio
-            podemos ayudarte a dise√±arlo y desarrollarlo con un enfoque creativo y tecnol√≥gico.
+            Si est·s construyendo una marca, producto o experiencia digital, en Yorurei Studio
+            podemos ayudarte a diseÒarlo y desarrollarlo con un enfoque creativo y tecnolÛgico.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/contact" className="akai-btn-primary">
-              Iniciar conversaci√≥n
+              Iniciar conversaciÛn
             </Link>
             <Link to="/services" className="akai-btn-secondary">
               Revisar servicios

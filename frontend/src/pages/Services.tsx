@@ -68,7 +68,7 @@ const Services: React.FC = () => {
         <div className="akai-hud-line" />
         <p className="text-xs uppercase tracking-[0.24em] text-red-300">Servicios</p>
       </div>
-      <h1 className="akai-section-title mt-3">Servicios corporativos de Akai Studio</h1>
+      <h1 className="akai-section-title mt-3">Servicios corporativos de Yorurei Studio</h1>
       <p className="akai-section-subtitle">
         Diseñamos y construimos soluciones digitales que combinan estrategia, arte y tecnología
         para empresas, productos y experiencias de entretenimiento.

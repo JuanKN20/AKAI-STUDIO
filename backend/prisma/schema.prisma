@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id               Int       @id @default(autoincrement())
+  title            String
+  slug             String    @unique
+  category         String?
+  shortDescription String
+  longDescription  String?
+  status           String    @default("draft")
+  coverImageUrl    String?
+  demoUrl          String?
+  repositoryUrl    String?
+  technologies     String[]  @default([])
+  featured         Boolean   @default(false)
+  sortOrder        Int       @default(0)
+  publishedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Service {
+  id           Int      @id @default(autoincrement())
+  title        String
+  slug         String   @unique
+  description  String
+  deliverables String[] @default([])
+  iconName     String?
+  isActive     Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Product {
+  id               Int       @id @default(autoincrement())
+  title            String
+  slug             String    @unique
+  type             String
+  shortDescription String
+  longDescription  String?
+  priceLabel       String?
+  status           String    @default("draft")
+  coverImageUrl    String?
+  galleryUrls      String[]  @default([])
+  tags             String[]  @default([])
+  featured         Boolean   @default(false)
+  sortOrder        Int       @default(0)
+  publishedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,12 +1,33 @@
+try {
+  require('dotenv').config();
+} catch {
+  // dotenv is optional if variables are injected by the runtime.
+}
 
-const { Pool } = require('pg');
+const { PrismaClient } = require('@prisma/client');
 
-const pool = new Pool({
-  user: 'tu_usuario',
-  host: 'localhost',
-  database: 'AkaistudioDB',
-  password: 'tu_contraseña',
-  port: 5432,
+const databaseUrl = (process.env.DATABASE_URL || '').trim();
+
+if (!databaseUrl) {
+  throw new Error(
+    'DATABASE_URL is required. Configure it in backend/.env (see backend/.env.example).',
+  );
+}
+
+const prisma = new PrismaClient({
+  log: process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
 });
 
-module.exports = pool;
+async function testConnection() {
+  await prisma.$queryRaw`SELECT 1`;
+}
+
+async function disconnect() {
+  await prisma.$disconnect();
+}
+
+module.exports = {
+  prisma,
+  testConnection,
+  disconnect,
+};
