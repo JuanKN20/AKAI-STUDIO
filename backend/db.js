@@ -10,7 +10,7 @@ const databaseUrl = (process.env.DATABASE_URL || '').trim();
 
 if (!databaseUrl) {
   throw new Error(
-    'DATABASE_URL is required. Configure it in backend/.env (see backend/.env.example).',
+    'DATABASE_URL is required. Configure it via environment variables (see backend/.env.example).',
   );
 }
 

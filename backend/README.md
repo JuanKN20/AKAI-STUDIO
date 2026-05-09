@@ -1,35 +1,35 @@
 # Yorurei Studio Backend
 
-API backend en Node.js + Express + Prisma para gestionar contenido dinamico de Yorurei Studio:
+API backend en Node.js + Express + Prisma para gestionar contenido dinámico de Yorurei Studio:
 
 - proyectos
 - servicios
 - productos
 - contactos
 
-## Stack local de esta fase
+## Stack local
 
 - Node.js 18+
-- Docker Desktop (PostgreSQL en contenedor)
+- Docker Desktop (PostgreSQL local)
 - Prisma ORM
 
 ## Variables de entorno
 
-Usa `backend/.env.example` como referencia y crea/ajusta `backend/.env`:
+Usa `backend/.env.example` como plantilla:
 
 ```powershell
 cd backend
 Copy-Item .env.example .env
 ```
 
-Variables principales:
+Variables requeridas:
 
-- `PORT=3001`
-- `DATABASE_URL=postgresql://yorurei:yorurei_local_2026@localhost:5433/yorurei_studio?schema=public`
-- `FRONTEND_ORIGIN=http://localhost:5173`
-- `ADMIN_API_TOKEN=change_me_in_local`
+- `PORT`
+- `DATABASE_URL`
+- `FRONTEND_ORIGIN`
+- `ADMIN_API_TOKEN`
 
-## Flujo recomendado (PowerShell)
+## Flujo local recomendado (PowerShell)
 
 1. Instalar dependencias:
 
@@ -44,21 +44,19 @@ npm install
 npm run db:up
 ```
 
-Con este `docker-compose.yml`, Docker Desktop mostrara el proyecto como `yorurei-studio`.
-
 3. Generar Prisma Client:
 
 ```powershell
 npx prisma generate
 ```
 
-4. Crear/aplicar migracion inicial:
+4. Crear/aplicar migraciones de desarrollo:
 
 ```powershell
 npx prisma migrate dev --name init
 ```
 
-5. Cargar seed inicial:
+5. Cargar seed:
 
 ```powershell
 npm run prisma:seed
@@ -70,30 +68,28 @@ npm run prisma:seed
 npm run dev
 ```
 
-7. Probar endpoints publicos:
+7. Probar endpoints públicos:
 
 - `http://localhost:3001/api/health`
 - `http://localhost:3001/api/services`
 - `http://localhost:3001/api/projects`
 - `http://localhost:3001/api/products`
 
-8. Prisma Studio (opcional):
+## Scripts útiles
 
-```powershell
-npm run prisma:studio
-```
+- `npm run dev`
+- `npm run start`
+- `npm run db:up`
+- `npm run db:down`
+- `npm run db:logs`
+- `npm run prisma:generate`
+- `npm run prisma:migrate`
+- `npm run prisma:deploy`
+- `npm run prisma:seed`
+- `npm run prisma:studio`
+- `npm run db:reset`
 
-## Scripts utiles
-
-- `npm run db:up`: inicia PostgreSQL Docker en segundo plano.
-- `npm run db:down`: detiene el contenedor.
-- `npm run db:logs`: logs en tiempo real de PostgreSQL.
-- `npm run prisma:generate`: genera cliente Prisma.
-- `npm run prisma:migrate`: crea/aplica migraciones de desarrollo.
-- `npm run prisma:seed`: ejecuta `prisma/seed.js`.
-- `npm run db:reset`: resetea DB de desarrollo con Prisma.
-
-## Endpoints publicos
+## Endpoints públicos
 
 - `GET /api/health`
 - `GET /api/projects`
@@ -143,17 +139,48 @@ Header requerido:
 x-admin-token: <ADMIN_API_TOKEN>
 ```
 
-Si `ADMIN_API_TOKEN` no esta configurado, rutas admin responden `401`.
+## Deploy backend (Render / Railway)
+
+Configuración sugerida:
+
+- **Build command**: `npm install && npx prisma generate`
+- **Start command**: `npm run start`
+- **Post-deploy / migrate command**: `npx prisma migrate deploy`
+
+Variables de entorno requeridas:
+
+- `DATABASE_URL`
+- `FRONTEND_ORIGIN`
+- `ADMIN_API_TOKEN`
+- `PORT` (si la plataforma lo requiere explícitamente)
+
+Pasos sugeridos:
+
+1. Crear la base de datos cloud (Supabase / Neon / Render Postgres).
+2. Copiar `DATABASE_URL` de la base cloud.
+3. Crear el servicio backend (root directory: `backend`).
+4. Configurar variables de entorno del servicio.
+5. Ejecutar migraciones con `npx prisma migrate deploy`.
+6. Ejecutar seed si aplica (`npm run prisma:seed`).
+7. Probar `GET /api/health`.
+8. Actualizar frontend Cloudflare con `VITE_API_BASE_URL=https://URL-DEL-BACKEND`.
+
+## Prisma en producción
+
+- `schema.prisma` usa provider `postgresql`.
+- Migraciones existentes se aplican con `prisma migrate deploy`.
+- `prisma/seed.js` usa `upsert`, por lo que es idempotente para los registros principales.
+- Recomendación: ejecutar seed solo cuando sea necesario para datos iniciales.
 
 ## Nota de seguridad
 
-La proteccion actual por `x-admin-token` es una capa minima para desarrollo local. Antes de produccion se debe implementar autenticacion/autorizacion real (usuarios, sesiones/JWT, roles, rotacion de credenciales y auditoria).
+La protección actual por `x-admin-token` es una capa mínima. Antes de producción final se recomienda implementar autenticación/autorización real (usuarios, sesiones/JWT, roles, rotación de credenciales y auditoría).
 
 ## SQL legacy
 
-El proyecto ahora usa Prisma como fuente principal de esquema y migraciones.
+Prisma es la fuente principal de esquema/migraciones.
 
-Los SQL previos se conservaron como referencia en:
+Los SQL previos se conservan como referencia en:
 
 - `backend/sql-legacy/YorureiStudioDB.sql`
 - `backend/sql-legacy/seed.sql`

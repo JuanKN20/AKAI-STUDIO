@@ -27,6 +27,7 @@ const corsOptions = {
       return callback(null, true);
     }
 
+    // In local development, allow requests if FRONTEND_ORIGIN is not set.
     if (configuredOrigins.length === 0 && process.env.NODE_ENV !== 'production') {
       return callback(null, true);
     }
@@ -75,7 +76,10 @@ app.use('/api', contactsRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-const port = Number(process.env.PORT || 3001);
+const port = Number.parseInt(String(process.env.PORT || '3001'), 10);
+const safePort = Number.isInteger(port) && port > 0 ? port : 3001;
+let serverInstance = null;
+let shuttingDown = false;
 
 async function startServer() {
   try {
@@ -85,18 +89,33 @@ async function startServer() {
     console.warn(`[db] Connection check failed: ${error.message}`);
   }
 
-  app.listen(port, () => {
-    console.log(`[server] Yorurei Studio API running on http://localhost:${port}`);
+  serverInstance = app.listen(safePort, () => {
+    const originSummary =
+      configuredOrigins.length > 0 ? configuredOrigins.join(', ') : 'not set (open only for local development)';
+
+    console.log(`[server] Yorurei Studio API listening on port ${safePort}`);
+    console.log(`[server] CORS FRONTEND_ORIGIN: ${originSummary}`);
   });
 }
 
-for (const signal of ['SIGINT', 'SIGTERM']) {
-  process.on(signal, async () => {
-    try {
-      await db.disconnect();
-    } finally {
-      process.exit(0);
+async function shutdown(signal) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`[server] Received ${signal}, shutting down...`);
+
+  try {
+    if (serverInstance) {
+      await new Promise((resolve) => serverInstance.close(resolve));
     }
+    await db.disconnect();
+  } finally {
+    process.exit(0);
+  }
+}
+
+for (const signal of ['SIGINT', 'SIGTERM']) {
+  process.on(signal, () => {
+    void shutdown(signal);
   });
 }
 
