@@ -1,75 +1,61 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from 'react';
+import { fallbackProjects } from '../data/fallbackProjects';
+import { getPublicProjects, ProjectItem } from '../services/api';
 
-type Project = {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  tags: string[];
-  image: string;
-  status: "Demo interna" | "Caso en desarrollo" | "Próximamente";
-};
+function getDisplayStatus(status: ProjectItem['status']): string {
+  if (status === 'published') return 'Publicado';
+  if (status === 'coming_soon') return 'Próximamente';
+  if (status === 'archived') return 'Archivado';
+  return 'Borrador interno';
+}
 
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "Yorurei Studio Web",
-    category: "Marca / Web / Identidad digital",
-    description:
-      "Sitio oficial de Yorurei Studio, diseñado para presentar la visión, servicios, proyectos y línea creativa del estudio.",
-    tags: ["React", "Vite", "Tailwind", "UI/UX", "Branding"],
-    image: "/images/Logo/Logo.png",
-    status: "Demo interna",
-  },
-  {
-    id: 2,
-    title: "Kaleido Lab",
-    category: "Desarrollo web / 3D / Gestión colaborativa",
-    description:
-      "Sistema web para la gestión colaborativa, revisión científica y control de versiones en la producción de modelos 3D.",
-    tags: ["React", "Node.js", "PostgreSQL", "Prisma", "3D"],
-    image: "/images/1013143.png",
-    status: "Caso en desarrollo",
-  },
-  {
-    id: 3,
-    title: "DISSAU Wallet",
-    category: "Desarrollo web / Fintech / API",
-    description:
-      "Módulo de billetera digital con consulta de saldo, transferencias entre usuarios e historial de movimientos.",
-    tags: [".NET", "React", "API REST", "Wallet"],
-    image: "/images/123.png",
-    status: "Caso en desarrollo",
-  },
-  {
-    id: 4,
-    title: "EMCALI CMS",
-    category: "CMS / Automatización / Flujo editorial",
-    description:
-      "Sistema de gestión de contenidos con flujo editorial, historial de revisiones, publicación programada y automatización.",
-    tags: ["React", "CMS", "Node.js", "Editorial Flow"],
-    image: "/images/LogoAkai.png",
-    status: "Caso en desarrollo",
-  },
-  {
-    id: 5,
-    title: "Conceptos de videojuegos",
-    category: "Game Dev / Prototipos / Experiencias interactivas",
-    description:
-      "Exploración de ideas, mecánicas, narrativa visual y prototipos orientados a entretenimiento digital.",
-    tags: ["Game Dev", "Narrativa", "3D", "IA"],
-    image: "/images/1013143.png",
-    status: "Próximamente",
-  },
-];
-
-const ctaByStatus: Record<Project["status"], string> = {
-  "Demo interna": "Demo interna",
-  "Caso en desarrollo": "Caso en desarrollo",
-  "Próximamente": "Próximamente",
-};
+function getCtaByStatus(status: ProjectItem['status']): string {
+  if (status === 'published') return 'Caso publicado';
+  if (status === 'coming_soon') return 'Próximamente';
+  if (status === 'archived') return 'Archivo';
+  return 'En desarrollo';
+}
 
 const Trabajos: React.FC = () => {
+  const [projects, setProjects] = useState<ProjectItem[]>(fallbackProjects);
+  const [usingFallback, setUsingFallback] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const load = async () => {
+      try {
+        const apiProjects = await getPublicProjects();
+        if (!mounted) return;
+        if (apiProjects.length > 0) {
+          setProjects(apiProjects);
+          setUsingFallback(false);
+        }
+      } catch {
+        if (!mounted) return;
+        setProjects(fallbackProjects);
+        setUsingFallback(true);
+      }
+    };
+
+    void load();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const orderedProjects = useMemo(
+    () =>
+      [...projects].sort((a, b) => {
+        if (a.sort_order === b.sort_order) {
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        }
+        return a.sort_order - b.sort_order;
+      }),
+    [projects],
+  );
+
   return (
     <div className="akai-page">
       <div className="flex items-center gap-3">
@@ -78,27 +64,34 @@ const Trabajos: React.FC = () => {
       </div>
       <h1 className="akai-section-title mt-3">Casos y proyectos representativos</h1>
       <p className="akai-section-subtitle">
-        Presentamos proyectos representativos de Yorurei Studio en desarrollo web, contenido digital,
-        experiencias interactivas y soluciones visuales de alto impacto.
+        Presentamos proyectos representativos de Yorurei Studio en desarrollo web, contenido digital, experiencias interactivas y
+        soluciones visuales de alto impacto.
       </p>
+      {usingFallback ? <p className="mt-3 text-xs text-zinc-400">Mostrando datos locales de respaldo.</p> : null}
 
       <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {projects.map((project) => (
+        {orderedProjects.map((project) => (
           <article key={project.id} className="akai-card overflow-hidden">
             <div className="relative">
-              <img src={project.image} alt={project.title} loading="lazy" decoding="async" className="h-48 w-full object-cover" />
+              <img
+                src={project.cover_image_url || '/images/1013143.png'}
+                alt={project.title}
+                loading="lazy"
+                decoding="async"
+                className="h-48 w-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <span className="absolute right-4 top-4 rounded-full border border-red-500/45 bg-black/65 px-3 py-1 text-xs text-red-100">
-                {project.status}
+                {getDisplayStatus(project.status)}
               </span>
             </div>
 
             <div className="p-6">
               <h2 className="text-lg font-semibold text-white">{project.title}</h2>
-              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-red-300">{project.category}</p>
-              <p className="mt-3 text-sm leading-relaxed text-zinc-300">{project.description}</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-red-300">{project.category || 'Categoría general'}</p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-300">{project.short_description}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
+                {project.technologies.map((tag) => (
                   <span key={tag} className="akai-chip">
                     {tag}
                   </span>
@@ -108,7 +101,7 @@ const Trabajos: React.FC = () => {
                 type="button"
                 className="mt-5 inline-flex rounded-full border border-red-500/45 bg-black/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-red-100"
               >
-                {ctaByStatus[project.status]}
+                {getCtaByStatus(project.status)}
               </button>
             </div>
           </article>

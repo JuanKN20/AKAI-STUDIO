@@ -1,10 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { ArrowLeft, KeyRound, ShieldCheck } from 'lucide-react';
 import { hasAdminToken, saveAdminToken, validateAdminToken } from './adminApi';
 
 type AdminLoginProps = {
   showInternalRoutes: boolean;
 };
+
+const TOKEN_ERROR_MESSAGE =
+  'No fue posible validar el token. Verifica que el backend esté activo y que el token sea correcto.';
 
 function resolveFromPath(state: unknown): string {
   if (state && typeof state === 'object' && 'from' in state) {
@@ -40,7 +44,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ showInternalRoutes }) => {
     const cleanToken = token.trim();
 
     if (!cleanToken) {
-      setError('Debes ingresar el token admin.');
+      setError('Ingresa un token de acceso para continuar.');
       return;
     }
 
@@ -51,68 +55,87 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ showInternalRoutes }) => {
       await validateAdminToken(cleanToken);
       saveAdminToken(cleanToken);
       navigate(targetPath, { replace: true });
-    } catch (loginError) {
-      setError(loginError instanceof Error ? loginError.message : 'No se pudo validar el token.');
+    } catch {
+      setError(TOKEN_ERROR_MESSAGE);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 pb-12 pt-24">
-      <div className="w-full max-w-md rounded-2xl border border-red-900/40 bg-black/65 p-6 shadow-akai-soft backdrop-blur-xl">
-        <div className="mb-6 text-center">
-          <img src="/images/Logo/Logo.png" alt="Yorurei Studio" className="mx-auto mb-3 h-12 w-auto" />
-          <h1 className="text-xl font-semibold text-red-200">Ingreso Admin</h1>
-          <p className="mt-2 text-xs text-zinc-300">
-            Ingresa el token interno para acceder al panel de Yorurei Studio.
-          </p>
-        </div>
+    <section className="admin-shell flex min-h-screen items-center px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mx-auto w-full max-w-xl">
+        <div className="admin-surface relative overflow-hidden p-6 sm:p-8">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/80 to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 bg-red-500/20 blur-3xl" />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="admin-token" className="mb-1 block text-xs font-medium text-zinc-300">
-              Token admin
-            </label>
-            <input
-              id="admin-token"
-              type="password"
-              autoComplete="off"
-              value={token}
-              onChange={(event) => setToken(event.target.value)}
-              placeholder="••••••••••••••••"
-              className="w-full rounded-xl border border-red-800/40 bg-black/50 px-3 py-2 text-sm text-white outline-none transition focus:border-red-500"
-            />
+          <div className="mb-6 flex items-center gap-3">
+            <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-red-500/45 bg-red-950/45 text-red-100 shadow-akai-glow">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="admin-kicker">Yorurei Studio</p>
+              <p className="text-sm font-semibold text-zinc-100">Acceso corporativo</p>
+            </div>
           </div>
 
-          {error ? <p className="rounded-lg border border-red-800/50 bg-red-950/30 px-3 py-2 text-xs text-red-200">{error}</p> : null}
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-white sm:text-[1.85rem]">Panel interno</h1>
+            <p className="text-sm font-medium text-red-200">Acceso administrativo de Yorurei Studio</p>
+            <p className="max-w-lg text-sm leading-relaxed text-zinc-300">
+              Ingresa el token interno para gestionar proyectos, servicios, productos y solicitudes de contacto.
+            </p>
+          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-xl border border-red-500/50 bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-70"
-          >
-            {loading ? 'Validando token...' : 'Entrar al panel'}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <div>
+              <label htmlFor="admin-token" className="admin-label">
+                Token de acceso
+              </label>
+              <div className="relative">
+                <KeyRound className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-red-300/80" />
+                <input
+                  id="admin-token"
+                  type="password"
+                  autoComplete="off"
+                  value={token}
+                  onChange={(event) => setToken(event.target.value)}
+                  placeholder="••••••••••••••••"
+                  className="admin-input pl-10"
+                />
+              </div>
+            </div>
 
-        <div className="mt-5 flex items-center justify-between text-xs text-zinc-400">
-          <Link to="/" className="transition hover:text-red-200">
-            Volver a Inicio
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              setToken('');
-              setError('');
-            }}
-            className="transition hover:text-red-200"
-          >
-            Limpiar
-          </button>
+            {error ? (
+              <p role="alert" className="rounded-xl border border-red-700/65 bg-red-950/40 px-3.5 py-2.5 text-sm text-red-100">
+                {error}
+              </p>
+            ) : null}
+
+            <button type="submit" disabled={loading} className="admin-btn-primary w-full">
+              {loading ? 'Validando token...' : 'Entrar al panel'}
+            </button>
+          </form>
+
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+            <Link to="/" className="admin-btn-secondary gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Volver al sitio
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setToken('');
+                setError('');
+              }}
+              className="admin-btn-secondary"
+            >
+              Limpiar
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

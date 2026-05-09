@@ -26,8 +26,8 @@ function buildStats(projects: ProjectItem[], services: ServiceItem[], products: 
 
 const DashboardCard: React.FC<{ title: string; value: number; subtitle: string }> = ({ title, value, subtitle }) => (
   <article className="akai-card p-4">
-    <p className="text-xs uppercase tracking-[0.2em] text-red-300/80">{title}</p>
-    <p className="mt-2 text-3xl font-bold text-white">{value}</p>
+    <p className="admin-kicker">{title}</p>
+    <p className="mt-3 text-3xl font-bold text-white">{value}</p>
     <p className="mt-2 text-xs text-zinc-400">{subtitle}</p>
   </article>
 );
@@ -42,7 +42,7 @@ const AdminDashboard: React.FC = () => {
       stats
         ? [
             { title: 'Proyectos', value: stats.totalProjects, subtitle: `${stats.publishedProjects} publicados` },
-            { title: 'Servicios', value: stats.totalServices, subtitle: 'Servicios totales en panel' },
+            { title: 'Servicios', value: stats.totalServices, subtitle: 'Servicios activos y de catálogo' },
             { title: 'Productos', value: stats.totalProducts, subtitle: `${stats.publishedProducts} publicados` },
             { title: 'Contactos', value: stats.totalContacts, subtitle: `${stats.newContacts} nuevos` },
           ]
@@ -68,10 +68,9 @@ const AdminDashboard: React.FC = () => {
         if (mounted) {
           setStats(buildStats(projects, services, products, contacts));
         }
-      } catch (loadError) {
+      } catch {
         if (mounted) {
-          const detail = loadError instanceof Error ? ` ${loadError.message}` : '';
-          setError(`No se pudo conectar con el backend. Verifica que esté corriendo en http://localhost:3001.${detail}`);
+          setError('No se pudo conectar con el backend. Verifica que esté corriendo en http://localhost:3001.');
         }
       } finally {
         if (mounted) {
@@ -89,21 +88,15 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <section className="space-y-4">
-      <header className="akai-panel p-4 sm:p-5">
-        <p className="text-xs uppercase tracking-[0.2em] text-red-300/85">Panel interno</p>
-        <h1 className="mt-1 text-2xl font-bold text-white">Dashboard Admin</h1>
-        <p className="mt-1 text-sm text-zinc-300">
-          Resumen operativo para gestionar contenido de Yorurei Studio.
-        </p>
+      <header className="admin-surface p-4 sm:p-5">
+        <p className="admin-kicker">Panel interno</p>
+        <h1 className="mt-1 text-2xl font-bold text-white">Dashboard admin</h1>
+        <p className="mt-1 text-sm text-zinc-300">Resumen operativo para la gestión de contenido de Yorurei Studio.</p>
       </header>
 
-      {error ? (
-        <div className="rounded-xl border border-red-800/55 bg-red-950/35 px-4 py-3 text-sm text-red-200">{error}</div>
-      ) : null}
+      {error ? <div className="rounded-xl border border-red-700/60 bg-red-950/35 px-4 py-3 text-sm text-red-100">{error}</div> : null}
 
-      {loading ? (
-        <div className="akai-panel p-5 text-sm text-zinc-300">Cargando métricas del panel...</div>
-      ) : null}
+      {loading ? <div className="admin-surface p-5 text-sm text-zinc-300">Cargando métricas del panel...</div> : null}
 
       {!loading && !error && stats ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

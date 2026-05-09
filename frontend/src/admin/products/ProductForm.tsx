@@ -48,8 +48,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
   }, [initialValues]);
 
   const handleChange = (field: keyof ProductFormValues, value: string | number | boolean) => {
-    setForm((prev) => ({
-      ...prev,
+    setForm((previous) => ({
+      ...previous,
       [field]: value,
     }));
   };
@@ -63,70 +63,91 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
     <form onSubmit={submit} className="space-y-4">
       <div className="grid gap-3 md:grid-cols-2">
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Título *</label>
+          <label htmlFor="product-title" className="admin-label">
+            Título *
+          </label>
           <input
+            id="product-title"
             required
             value={form.title}
             onChange={(event) => handleChange('title', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Slug (opcional)</label>
+          <label htmlFor="product-slug" className="admin-label">
+            Slug (opcional)
+          </label>
           <input
+            id="product-slug"
             value={form.slug}
             onChange={(event) => handleChange('slug', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Tipo *</label>
+          <label htmlFor="product-type" className="admin-label">
+            Tipo *
+          </label>
           <input
+            id="product-type"
             required
             value={form.type}
             onChange={(event) => handleChange('type', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Descripción corta *</label>
+          <label htmlFor="product-short-description" className="admin-label">
+            Descripción corta *
+          </label>
           <textarea
+            id="product-short-description"
             required
             rows={2}
             value={form.shortDescription}
             onChange={(event) => handleChange('shortDescription', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea min-h-20"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Descripción larga</label>
+          <label htmlFor="product-long-description" className="admin-label">
+            Descripción larga
+          </label>
           <textarea
+            id="product-long-description"
             rows={3}
             value={form.longDescription}
             onChange={(event) => handleChange('longDescription', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Price label</label>
+          <label htmlFor="product-price-label" className="admin-label">
+            Price label
+          </label>
           <input
+            id="product-price-label"
             value={form.priceLabel}
             onChange={(event) => handleChange('priceLabel', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Estado</label>
+          <label htmlFor="product-status" className="admin-label">
+            Estado
+          </label>
           <select
+            id="product-status"
             value={form.status}
             onChange={(event) => handleChange('status', event.target.value as ContentStatus)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-select"
           >
             <option value="draft">draft</option>
             <option value="published">published</option>
@@ -136,56 +157,72 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Cover image URL</label>
+          <label htmlFor="product-cover-image-url" className="admin-label">
+            Cover image URL
+          </label>
           <input
+            id="product-cover-image-url"
             value={form.coverImageUrl}
             onChange={(event) => handleChange('coverImageUrl', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Sort order</label>
+          <label htmlFor="product-sort-order" className="admin-label">
+            Orden
+          </label>
           <input
+            id="product-sort-order"
             type="number"
             value={form.sortOrder}
             onChange={(event) => handleChange('sortOrder', Number(event.target.value))}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Gallery URLs (comas o líneas)</label>
+          <label htmlFor="product-gallery-urls" className="admin-label">
+            Gallery URLs (comas o líneas)
+          </label>
           <textarea
+            id="product-gallery-urls"
             rows={3}
             value={form.galleryUrlsText}
             onChange={(event) => handleChange('galleryUrlsText', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Tags (separadas por comas)</label>
+          <label htmlFor="product-tags" className="admin-label">
+            Tags (separadas por comas)
+          </label>
           <input
+            id="product-tags"
             value={form.tagsText}
             onChange={(event) => handleChange('tagsText', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Published at (opcional)</label>
+          <label htmlFor="product-published-at" className="admin-label">
+            Published at (opcional)
+          </label>
           <input
+            id="product-published-at"
             type="datetime-local"
             value={form.publishedAt}
             onChange={(event) => handleChange('publishedAt', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
       </div>
 
-      <label className="inline-flex items-center gap-2 text-sm text-zinc-200">
+      <label htmlFor="product-featured" className="inline-flex items-center gap-2 text-sm text-zinc-200">
         <input
+          id="product-featured"
           type="checkbox"
           checked={form.featured}
           onChange={(event) => handleChange('featured', event.target.checked)}
@@ -195,18 +232,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
       </label>
 
       <div className="flex flex-wrap gap-2">
-        <button
-          type="submit"
-          disabled={submitting}
-          className="rounded-xl border border-red-500/55 bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-70"
-        >
+        <button type="submit" disabled={submitting} className="admin-btn-primary">
           {submitting ? 'Guardando...' : 'Guardar producto'}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-xl border border-red-700/45 bg-black/35 px-4 py-2 text-sm text-zinc-200 transition hover:border-red-500/65"
-        >
+        <button type="button" onClick={onCancel} className="admin-btn-secondary">
           Cancelar
         </button>
       </div>

@@ -1,89 +1,103 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Boxes,
-  Clapperboard,
-  Code2,
-  Cpu,
-  Gamepad2,
-  Palette,
-  Sparkles,
-  Target,
-  Zap,
-} from "lucide-react";
-import ServicesCarousel from "../components/ServicesCarousel";
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Bot, Boxes, Clapperboard, Code2, Cpu, Gamepad2, Palette, Sparkles, Target, Zap } from 'lucide-react';
+import ServicesCarousel from '../components/ServicesCarousel';
+import { fallbackProjects } from '../data/fallbackProjects';
+import { fallbackServices } from '../data/fallbackServices';
+import { getPublicProjects, getPublicServices, ProjectItem, ServiceItem } from '../services/api';
 
-const chips = [
-  "Videojuegos",
-  "Animación",
-  "Desarrollo Web",
-  "Modelado 3D",
-  "Inteligencia Artificial",
-  "Experiencias Interactivas",
-];
+type IconComponent = React.ComponentType<{ className?: string }>;
 
-const areas = [
-  {
-    title: "Desarrollo de videojuegos",
-    description: "Conceptos, prototipos y productos jugables con narrativa, arte y tecnología.",
-    icon: Gamepad2,
-  },
-  {
-    title: "Desarrollo web",
-    description: "Sitios, plataformas y aplicaciones escalables alineadas con objetivos de negocio.",
-    icon: Code2,
-  },
-  {
-    title: "Animación 2D/3D",
-    description: "Storytelling visual para marcas, productos y experiencias multimedia.",
-    icon: Clapperboard,
-  },
-  {
-    title: "Modelado y visualización 3D",
-    description: "Assets, personajes y escenas para entretenimiento y soluciones digitales.",
-    icon: Boxes,
-  },
-  {
-    title: "Inteligencia artificial",
-    description: "Automatización, asistentes y experiencias inteligentes para nuevos productos.",
-    icon: Cpu,
-  },
-  {
-    title: "Experiencias interactivas",
-    description: "Integración de arte, tecnología e interacción para resultados memorables.",
-    icon: Sparkles,
-  },
-  {
-    title: "Branding y contenido digital",
-    description: "Identidad visual y comunicación multimedia con enfoque estratégico.",
-    icon: Palette,
-  },
-];
+function resolveServiceIcon(service: ServiceItem): IconComponent {
+  const value = `${service.slug} ${service.title}`.toLowerCase();
+  if (value.includes('videojuego') || value.includes('game')) return Gamepad2;
+  if (value.includes('animacion') || value.includes('animación')) return Clapperboard;
+  if (value.includes('modelado') || value.includes('3d')) return Boxes;
+  if (value.includes('inteligencia') || value.includes('ia')) return Bot;
+  if (value.includes('branding')) return Palette;
+  return Code2;
+}
+
+function projectStatusLabel(status: ProjectItem['status']): string {
+  if (status === 'published') return 'Publicado';
+  if (status === 'coming_soon') return 'Próximamente';
+  if (status === 'archived') return 'Archivado';
+  return 'Borrador';
+}
 
 const differentiators = [
   {
-    title: "Creatividad con enfoque técnico",
-    description: "Diseñamos soluciones visuales con base sólida en arquitectura y desarrollo.",
+    title: 'Creatividad con enfoque técnico',
+    description: 'Diseñamos soluciones visuales con base sólida en arquitectura y desarrollo.',
     icon: Zap,
   },
   {
-    title: "Experiencias visualmente impactantes",
-    description: "Construimos productos con identidad estática fuerte y coherencia de marca.",
+    title: 'Experiencias visualmente impactantes',
+    description: 'Construimos productos con identidad estética fuerte y coherencia de marca.',
     icon: Sparkles,
   },
   {
-    title: "Soluciones adaptadas a cada proyecto",
-    description: "Cada propuesta se ajusta a objetivos reales, alcance y tipo de audiencia.",
+    title: 'Soluciones adaptadas a cada proyecto',
+    description: 'Cada propuesta se ajusta a objetivos reales, alcance y tipo de audiencia.',
     icon: Target,
   },
   {
-    title: "Integración de arte, tecnología e innovación",
-    description: "Unimos dirección creativa y ejecución técnica para producir experiencias premium.",
+    title: 'Integración de arte, tecnología e innovación',
+    description: 'Unimos dirección creativa y ejecución técnica para producir experiencias premium.',
     icon: Cpu,
   },
 ];
 
 const Home: React.FC = () => {
+  const [services, setServices] = useState<ServiceItem[]>(fallbackServices);
+  const [projects, setProjects] = useState<ProjectItem[]>(fallbackProjects);
+  const [usingFallbackServices, setUsingFallbackServices] = useState(true);
+  const [usingFallbackProjects, setUsingFallbackProjects] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const loadServices = async () => {
+      try {
+        const apiServices = await getPublicServices();
+        if (!mounted) return;
+        if (apiServices.length > 0) {
+          setServices(apiServices);
+          setUsingFallbackServices(false);
+        }
+      } catch {
+        if (!mounted) return;
+        setServices(fallbackServices);
+        setUsingFallbackServices(true);
+      }
+    };
+
+    const loadProjects = async () => {
+      try {
+        const apiProjects = await getPublicProjects();
+        if (!mounted) return;
+        if (apiProjects.length > 0) {
+          setProjects(apiProjects);
+          setUsingFallbackProjects(false);
+        }
+      } catch {
+        if (!mounted) return;
+        setProjects(fallbackProjects);
+        setUsingFallbackProjects(true);
+      }
+    };
+
+    void Promise.all([loadServices(), loadProjects()]);
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const chips = useMemo(() => services.slice(0, 6).map((service) => service.title), [services]);
+  const topServices = useMemo(() => services.slice(0, 6), [services]);
+  const featuredProjects = useMemo(() => projects.filter((item) => item.featured).slice(0, 3), [projects]);
+
   return (
     <div className="w-full">
       <section className="relative isolate overflow-hidden pt-28 sm:pt-32 lg:pt-36">
@@ -105,22 +119,15 @@ const Home: React.FC = () => {
             <div className="space-y-8 animate-fade-up">
               <div className="flex items-center gap-3">
                 <div className="akai-hud-line" />
-                <span className="text-xs uppercase tracking-[0.24em] text-red-300">
-                  Estudio creativo y tecnológico
-                </span>
+                <span className="text-xs uppercase tracking-[0.24em] text-red-300">Estudio creativo y tecnológico</span>
               </div>
 
               <div>
-                <h1 className="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">
-                  Yorurei Studio
-                </h1>
-                <p className="mt-4 text-lg text-red-200 sm:text-xl">
-                  Creamos experiencias digitales, visuales e interactivas.
-                </p>
+                <h1 className="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">Yorurei Studio</h1>
+                <p className="mt-4 text-lg text-red-200 sm:text-xl">Creamos experiencias digitales, visuales e interactivas.</p>
                 <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-                  Somos un estudio creativo y tecnológico enfocado en desarrollo web, videojuegos,
-                  animación, modelado 3D e inteligencia artificial. Transformamos ideas en
-                  proyectos visualmente impactantes, funcionales y memorables.
+                  Somos un estudio creativo y tecnológico enfocado en desarrollo web, videojuegos, animación, modelado 3D e
+                  inteligencia artificial. Transformamos ideas en proyectos visualmente impactantes, funcionales y memorables.
                 </p>
               </div>
 
@@ -139,10 +146,7 @@ const Home: React.FC = () => {
                 <Link to="/trabajos" className="akai-btn-secondary">
                   Ver proyectos
                 </Link>
-                <Link
-                  to="/contact"
-                  className="text-sm text-zinc-300 underline-offset-4 hover:text-red-200 hover:underline"
-                >
+                <Link to="/contact" className="text-sm text-zinc-300 underline-offset-4 hover:text-red-200 hover:underline">
                   Contactar
                 </Link>
               </div>
@@ -152,17 +156,15 @@ const Home: React.FC = () => {
               <article className="akai-card p-5">
                 <p className="text-xs uppercase tracking-[0.24em] text-red-300">Misión</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ofrecer soluciones creativas e innovadoras en animación, videojuegos, desarrollo
-                  web, modelado 3D e inteligencia artificial, diseñadas para resolver necesidades
-                  de clientes y crear entretenimiento de alta calidad.
+                  Ofrecer soluciones creativas e innovadoras en animación, videojuegos, desarrollo web, modelado 3D e inteligencia
+                  artificial, diseñadas para resolver necesidades de clientes y crear entretenimiento de alta calidad.
                 </p>
               </article>
               <article className="akai-card p-5">
                 <p className="text-xs uppercase tracking-[0.24em] text-red-300">Visión</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ser un estudio referente en la creación de experiencias innovadoras y visualmente
-                  impactantes, destacando por calidad, creatividad, pasión, innovación y uso de
-                  tecnologías de vanguardia.
+                  Ser un estudio referente en la creación de experiencias innovadoras y visualmente impactantes, destacando por calidad,
+                  creatividad, pasión, innovación y uso de tecnologías de vanguardia.
                 </p>
               </article>
             </div>
@@ -177,18 +179,44 @@ const Home: React.FC = () => {
         </div>
         <h2 className="akai-section-title mt-3">Líneas de negocio de Yorurei Studio</h2>
         <p className="akai-section-subtitle">
-          Integramos tecnología, creatividad y producción multimedia para construir soluciones
-          digitales con identidad y alto impacto visual.
+          Integramos tecnología, creatividad y producción multimedia para construir soluciones digitales con identidad y alto impacto
+          visual.
         </p>
+        {usingFallbackServices ? <p className="mt-3 text-xs text-zinc-400">Mostrando servicios locales de respaldo.</p> : null}
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {areas.map((area) => (
-            <article key={area.title} className="akai-card p-6">
-              <div className="inline-flex rounded-xl border border-red-500/35 bg-red-950/40 p-2 text-red-200">
-                <area.icon className="h-5 w-5" />
+          {topServices.map((service) => {
+            const Icon = resolveServiceIcon(service);
+            return (
+              <article key={service.id} className="akai-card p-6">
+                <div className="inline-flex rounded-xl border border-red-500/35 bg-red-950/40 p-2 text-red-200">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-white">{service.title}</h3>
+                <p className="mt-2 text-sm text-zinc-300">{service.description}</p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="akai-page pt-2 md:pt-2">
+        <div className="flex items-center gap-3">
+          <div className="akai-hud-line" />
+          <p className="text-xs uppercase tracking-[0.24em] text-red-300">Destacados</p>
+        </div>
+        <h2 className="akai-section-title mt-3">Proyectos destacados</h2>
+        {usingFallbackProjects ? <p className="mt-3 text-xs text-zinc-400">Mostrando proyectos locales de respaldo.</p> : null}
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {featuredProjects.map((project) => (
+            <article key={project.id} className="akai-card p-5">
+              <p className="text-xs uppercase tracking-[0.16em] text-red-300">{project.category || 'Proyecto'}</p>
+              <h3 className="mt-2 text-lg font-semibold text-white">{project.title}</h3>
+              <p className="mt-2 text-sm text-zinc-300">{project.short_description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="akai-chip">{projectStatusLabel(project.status)}</span>
+                {project.featured ? <span className="akai-chip">featured</span> : null}
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-white">{area.title}</h3>
-              <p className="mt-2 text-sm text-zinc-300">{area.description}</p>
             </article>
           ))}
         </div>
@@ -199,7 +227,7 @@ const Home: React.FC = () => {
           <div className="akai-hud-line" />
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Diferenciales</p>
         </div>
-        <h2 className="akai-section-title mt-3">Por qu? Yorurei Studio</h2>
+        <h2 className="akai-section-title mt-3">Por qué Yorurei Studio</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {differentiators.map((item) => (
             <article key={item.title} className="akai-card p-6">
@@ -215,13 +243,13 @@ const Home: React.FC = () => {
 
       <ServicesCarousel />
 
-      <section className="akai-page pt-2 md:pt-4 pb-20">
-        <div className="akai-panel p-6 md:p-8 text-center">
+      <section className="akai-page pb-20 pt-2 md:pt-4">
+        <div className="akai-panel p-6 text-center md:p-8">
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Siguiente paso</p>
-          <h2 className="mt-3 text-2xl md:text-3xl font-bold text-white">Hablemos de tu proyecto</h2>
-          <p className="mt-3 max-w-3xl mx-auto text-sm md:text-base text-zinc-300">
-            Si estás construyendo una marca, producto o experiencia digital, en Yorurei Studio
-            podemos ayudarte a diseñarlo y desarrollarlo con un enfoque creativo y tecnológico.
+          <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Hablemos de tu proyecto</h2>
+          <p className="mx-auto mt-3 max-w-3xl text-sm text-zinc-300 md:text-base">
+            Si estás construyendo una marca, producto o experiencia digital, en Yorurei Studio podemos ayudarte a diseñarlo y
+            desarrollarlo con un enfoque creativo y tecnológico.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/contact" className="akai-btn-primary">

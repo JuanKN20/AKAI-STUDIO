@@ -35,8 +35,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialValues, onSubmit, onCa
   }, [initialValues]);
 
   const handleChange = (field: keyof ServiceFormValues, value: string | number | boolean) => {
-    setForm((prev) => ({
-      ...prev,
+    setForm((previous) => ({
+      ...previous,
       [field]: value,
     }));
   };
@@ -50,67 +50,86 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialValues, onSubmit, onCa
     <form onSubmit={submit} className="space-y-4">
       <div className="grid gap-3 md:grid-cols-2">
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Título *</label>
+          <label htmlFor="service-title" className="admin-label">
+            Título *
+          </label>
           <input
+            id="service-title"
             required
             value={form.title}
             onChange={(event) => handleChange('title', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Slug (opcional)</label>
+          <label htmlFor="service-slug" className="admin-label">
+            Slug (opcional)
+          </label>
           <input
+            id="service-slug"
             value={form.slug}
             onChange={(event) => handleChange('slug', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Icon name</label>
+          <label htmlFor="service-icon-name" className="admin-label">
+            Icon name
+          </label>
           <input
+            id="service-icon-name"
             value={form.iconName}
             onChange={(event) => handleChange('iconName', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Descripción *</label>
+          <label htmlFor="service-description" className="admin-label">
+            Descripción *
+          </label>
           <textarea
+            id="service-description"
             required
             rows={3}
             value={form.description}
             onChange={(event) => handleChange('description', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Deliverables (separar por comas o líneas)</label>
+          <label htmlFor="service-deliverables" className="admin-label">
+            Deliverables (separar por comas o líneas)
+          </label>
           <textarea
+            id="service-deliverables"
             rows={3}
             value={form.deliverablesText}
             onChange={(event) => handleChange('deliverablesText', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Sort order</label>
+          <label htmlFor="service-sort-order" className="admin-label">
+            Orden
+          </label>
           <input
+            id="service-sort-order"
             type="number"
             value={form.sortOrder}
             onChange={(event) => handleChange('sortOrder', Number(event.target.value))}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
       </div>
 
-      <label className="inline-flex items-center gap-2 text-sm text-zinc-200">
+      <label htmlFor="service-is-active" className="inline-flex items-center gap-2 text-sm text-zinc-200">
         <input
+          id="service-is-active"
           type="checkbox"
           checked={form.isActive}
           onChange={(event) => handleChange('isActive', event.target.checked)}
@@ -120,18 +139,10 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ initialValues, onSubmit, onCa
       </label>
 
       <div className="flex flex-wrap gap-2">
-        <button
-          type="submit"
-          disabled={submitting}
-          className="rounded-xl border border-red-500/55 bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-70"
-        >
+        <button type="submit" disabled={submitting} className="admin-btn-primary">
           {submitting ? 'Guardando...' : 'Guardar servicio'}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-xl border border-red-700/45 bg-black/35 px-4 py-2 text-sm text-zinc-200 transition hover:border-red-500/65"
-        >
+        <button type="button" onClick={onCancel} className="admin-btn-secondary">
           Cancelar
         </button>
       </div>

@@ -48,8 +48,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
   }, [initialValues]);
 
   const handleChange = (field: keyof ProjectFormValues, value: string | number | boolean) => {
-    setForm((prev) => ({
-      ...prev,
+    setForm((previous) => ({
+      ...previous,
       [field]: value,
     }));
   };
@@ -63,60 +63,78 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
     <form onSubmit={submit} className="space-y-4">
       <div className="grid gap-3 md:grid-cols-2">
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Título *</label>
+          <label htmlFor="project-title" className="admin-label">
+            Título *
+          </label>
           <input
+            id="project-title"
             required
             value={form.title}
             onChange={(event) => handleChange('title', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Slug (opcional)</label>
+          <label htmlFor="project-slug" className="admin-label">
+            Slug (opcional)
+          </label>
           <input
+            id="project-slug"
             value={form.slug}
             onChange={(event) => handleChange('slug', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Categoría</label>
+          <label htmlFor="project-category" className="admin-label">
+            Categoría
+          </label>
           <input
+            id="project-category"
             value={form.category}
             onChange={(event) => handleChange('category', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Descripción corta *</label>
+          <label htmlFor="project-short-description" className="admin-label">
+            Descripción corta *
+          </label>
           <textarea
+            id="project-short-description"
             required
             rows={2}
             value={form.shortDescription}
             onChange={(event) => handleChange('shortDescription', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea min-h-20"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Descripción larga</label>
+          <label htmlFor="project-long-description" className="admin-label">
+            Descripción larga
+          </label>
           <textarea
+            id="project-long-description"
             rows={3}
             value={form.longDescription}
             onChange={(event) => handleChange('longDescription', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea min-h-24"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Estado</label>
+          <label htmlFor="project-status" className="admin-label">
+            Estado
+          </label>
           <select
+            id="project-status"
             value={form.status}
             onChange={(event) => handleChange('status', event.target.value as ContentStatus)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-select"
           >
             <option value="draft">draft</option>
             <option value="published">published</option>
@@ -126,65 +144,84 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Sort order</label>
+          <label htmlFor="project-sort-order" className="admin-label">
+            Orden
+          </label>
           <input
+            id="project-sort-order"
             type="number"
             value={form.sortOrder}
             onChange={(event) => handleChange('sortOrder', Number(event.target.value))}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs text-zinc-300">Tecnologías (separadas por comas)</label>
+          <label htmlFor="project-technologies" className="admin-label">
+            Tecnologías (separadas por comas)
+          </label>
           <textarea
+            id="project-technologies"
             rows={2}
             value={form.technologiesText}
             onChange={(event) => handleChange('technologiesText', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-textarea min-h-20"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Cover image URL</label>
+          <label htmlFor="project-cover-image-url" className="admin-label">
+            Cover image URL
+          </label>
           <input
+            id="project-cover-image-url"
             value={form.coverImageUrl}
             onChange={(event) => handleChange('coverImageUrl', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Demo URL</label>
+          <label htmlFor="project-demo-url" className="admin-label">
+            Demo URL
+          </label>
           <input
+            id="project-demo-url"
             value={form.demoUrl}
             onChange={(event) => handleChange('demoUrl', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Repository URL</label>
+          <label htmlFor="project-repository-url" className="admin-label">
+            Repository URL
+          </label>
           <input
+            id="project-repository-url"
             value={form.repositoryUrl}
             onChange={(event) => handleChange('repositoryUrl', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs text-zinc-300">Published at (opcional)</label>
+          <label htmlFor="project-published-at" className="admin-label">
+            Published at (opcional)
+          </label>
           <input
+            id="project-published-at"
             type="datetime-local"
             value={form.publishedAt}
             onChange={(event) => handleChange('publishedAt', event.target.value)}
-            className="w-full rounded-xl border border-red-900/40 bg-black/45 px-3 py-2 text-sm"
+            className="admin-input"
           />
         </div>
       </div>
 
-      <label className="inline-flex items-center gap-2 text-sm text-zinc-200">
+      <label htmlFor="project-featured" className="inline-flex items-center gap-2 text-sm text-zinc-200">
         <input
+          id="project-featured"
           type="checkbox"
           checked={form.featured}
           onChange={(event) => handleChange('featured', event.target.checked)}
@@ -194,18 +231,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
       </label>
 
       <div className="flex flex-wrap gap-2">
-        <button
-          type="submit"
-          disabled={submitting}
-          className="rounded-xl border border-red-500/55 bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-70"
-        >
+        <button type="submit" disabled={submitting} className="admin-btn-primary">
           {submitting ? 'Guardando...' : 'Guardar proyecto'}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-xl border border-red-700/45 bg-black/35 px-4 py-2 text-sm text-zinc-200 transition hover:border-red-500/65"
-        >
+        <button type="button" onClick={onCancel} className="admin-btn-secondary">
           Cancelar
         </button>
       </div>

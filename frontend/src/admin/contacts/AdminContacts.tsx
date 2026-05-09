@@ -3,6 +3,13 @@ import { AdminContactItem, ContactStatus, getAdminContacts, updateContactStatus 
 
 const statusOptions: ContactStatus[] = ['new', 'in_progress', 'resolved', 'archived'];
 
+function statusClass(status: ContactStatus): string {
+  if (status === 'resolved') return 'border-emerald-500/50 bg-emerald-950/35 text-emerald-200';
+  if (status === 'in_progress') return 'border-sky-500/50 bg-sky-950/35 text-sky-200';
+  if (status === 'archived') return 'border-zinc-500/45 bg-zinc-950/35 text-zinc-300';
+  return 'border-amber-500/50 bg-amber-950/35 text-amber-200';
+}
+
 const AdminContacts: React.FC = () => {
   const [contacts, setContacts] = useState<AdminContactItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,34 +61,32 @@ const AdminContacts: React.FC = () => {
 
   return (
     <section className="space-y-4">
-      <header className="akai-panel flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+      <header className="admin-surface flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-red-300/85">Admin</p>
+          <p className="admin-kicker">Admin</p>
           <h1 className="text-2xl font-bold text-white">Contactos</h1>
-          <p className="text-sm text-zinc-300">Gestiona mensajes recibidos y su estado interno de seguimiento.</p>
+          <p className="text-sm text-zinc-300">Gestiona solicitudes recibidas y su estado interno de seguimiento.</p>
         </div>
-        <button
-          type="button"
-          onClick={() => void loadContacts()}
-          className="rounded-xl border border-red-700/45 bg-black/35 px-4 py-2 text-sm text-zinc-100 transition hover:border-red-500/65"
-        >
+        <button type="button" onClick={() => void loadContacts()} className="admin-btn-secondary">
           Recargar
         </button>
       </header>
 
-      {error ? <div className="rounded-xl border border-red-800/55 bg-red-950/35 px-4 py-3 text-sm text-red-200">{error}</div> : null}
+      {error ? <div className="rounded-xl border border-red-700/60 bg-red-950/35 px-4 py-3 text-sm text-red-100">{error}</div> : null}
 
-      {loading ? <div className="akai-panel p-4 text-sm text-zinc-300">Cargando contactos...</div> : null}
+      {loading ? <div className="admin-surface p-4 text-sm text-zinc-300">Cargando contactos...</div> : null}
 
       {!loading && !error ? (
         <div className="grid gap-3">
           {contacts.map((contact) => (
-            <article key={contact.id} className="akai-card p-4">
+            <article key={contact.id} className="akai-card p-4 sm:p-5">
               <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-start">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-base font-semibold text-white">{contact.name}</h3>
-                    <span className="akai-chip">{contact.status}</span>
+                    <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${statusClass(contact.status)}`}>
+                      {contact.status}
+                    </span>
                   </div>
                   <p className="mt-1 text-xs text-zinc-400">
                     {contact.email}
@@ -92,7 +97,11 @@ const AdminContacts: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
+                  <label htmlFor={`contact-status-${contact.id}`} className="sr-only">
+                    Estado del contacto {contact.name}
+                  </label>
                   <select
+                    id={`contact-status-${contact.id}`}
                     value={draftStatuses[contact.id] || contact.status}
                     onChange={(event) =>
                       setDraftStatuses((previous) => ({
@@ -100,7 +109,7 @@ const AdminContacts: React.FC = () => {
                         [contact.id]: event.target.value as ContactStatus,
                       }))
                     }
-                    className="rounded-lg border border-red-900/40 bg-black/45 px-3 py-2 text-xs text-zinc-100"
+                    className="admin-select min-w-36 px-3 py-2 text-xs"
                   >
                     {statusOptions.map((status) => (
                       <option key={status} value={status}>
@@ -112,7 +121,7 @@ const AdminContacts: React.FC = () => {
                     type="button"
                     disabled={updatingId === contact.id}
                     onClick={() => void saveStatus(contact)}
-                    className="rounded-lg border border-red-700/45 bg-black/35 px-3 py-2 text-xs text-zinc-100 transition hover:border-red-500/65 disabled:opacity-65"
+                    className="admin-btn-secondary px-3 py-2 text-xs"
                   >
                     {updatingId === contact.id ? 'Guardando...' : 'Guardar'}
                   </button>

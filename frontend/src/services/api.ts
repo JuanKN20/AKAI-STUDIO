@@ -1,4 +1,5 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+const DEFAULT_TIMEOUT_MS = 8000;
 
 type ApiSuccess<T> = {
   ok: true;
@@ -13,6 +14,12 @@ type ApiError = {
 
 type ApiResponse<T> = ApiSuccess<T> | ApiError;
 
+type RequestOptions = RequestInit & {
+  timeoutMs?: number;
+};
+
+export type ProjectStatus = 'draft' | 'published' | 'archived' | 'coming_soon';
+
 export type ProjectItem = {
   id: number;
   title: string;
@@ -20,7 +27,7 @@ export type ProjectItem = {
   category: string | null;
   short_description: string;
   long_description: string | null;
-  status: 'draft' | 'published' | 'archived' | 'coming_soon';
+  status: ProjectStatus;
   cover_image_url: string | null;
   demo_url: string | null;
   repository_url: string | null;
@@ -53,7 +60,7 @@ export type ProductItem = {
   short_description: string;
   long_description: string | null;
   price_label: string | null;
-  status: 'draft' | 'published' | 'archived' | 'coming_soon';
+  status: ProjectStatus;
   cover_image_url: string | null;
   gallery_urls: string[];
   tags: string[];
@@ -72,35 +79,89 @@ export type ContactPayload = {
   subject?: string;
 };
 
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options?.headers || {}),
-    },
-    ...options,
-  });
+export type PublicProjectsQuery = {
+  status?: ProjectStatus;
+  featured?: boolean;
+};
 
-  const payload = (await response.json()) as ApiResponse<T>;
+export type PublicProductsQuery = {
+  status?: ProjectStatus;
+  featured?: boolean;
+  type?: string;
+};
 
-  if (!response.ok || !payload.ok) {
-    const message = !payload.ok ? payload.error : `Request failed with status ${response.status}`;
+function buildQuery(query: Record<string, string | number | boolean | undefined>): string {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(query)) {
+    if (value !== undefined) {
+      params.set(key, String(value));
+    }
+  }
+  const queryString = params.toString();
+  return queryString ? `?${queryString}` : '';
+}
+
+async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+  const { timeoutMs = DEFAULT_TIMEOUT_MS, ...requestOptions } = options;
+  const controller = new AbortController();
+  const timeoutHandle = setTimeout(() => controller.abort(), timeoutMs);
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(requestOptions.headers || {}),
+      },
+      ...requestOptions,
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new Error('El servidor tardó demasiado en responder.');
+    }
+    throw new Error('No se pudo conectar con el backend.');
+  } finally {
+    clearTimeout(timeoutHandle);
+  }
+
+  let payload: ApiResponse<T> | null = null;
+  const responseText = await response.text();
+
+  if (responseText) {
+    try {
+      payload = JSON.parse(responseText) as ApiResponse<T>;
+    } catch {
+      payload = null;
+    }
+  }
+
+  if (!response.ok) {
+    const message = payload && !payload.ok ? payload.error : `Request failed with status ${response.status}`;
     throw new Error(message);
+  }
+
+  if (!payload || typeof payload !== 'object' || !('ok' in payload)) {
+    throw new Error('Respuesta inesperada del backend.');
+  }
+
+  if (!payload.ok) {
+    throw new Error(payload.error || 'Error no controlado del backend.');
   }
 
   return payload.data;
 }
 
-export function getProjects() {
-  return request<ProjectItem[]>('/api/projects');
-}
-
-export function getServices() {
+export function getPublicServices() {
   return request<ServiceItem[]>('/api/services');
 }
 
-export function getProducts() {
-  return request<ProductItem[]>('/api/products');
+export function getPublicProjects(query: PublicProjectsQuery = {}) {
+  return request<ProjectItem[]>(`/api/projects${buildQuery(query)}`);
+}
+
+export function getPublicProducts(query: PublicProductsQuery = {}) {
+  return request<ProductItem[]>(`/api/products${buildQuery(query)}`);
 }
 
 export function createContactMessage(payload: ContactPayload) {
@@ -109,5 +170,10 @@ export function createContactMessage(payload: ContactPayload) {
     body: JSON.stringify(payload),
   });
 }
+
+// Backward-compatible aliases while existing imports migrate.
+export const getProjects = getPublicProjects;
+export const getServices = getPublicServices;
+export const getProducts = getPublicProducts;
 
 export { API_BASE_URL };

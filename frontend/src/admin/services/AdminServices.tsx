@@ -126,22 +126,18 @@ const AdminServices: React.FC = () => {
 
   return (
     <section className="space-y-4">
-      <header className="akai-panel flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+      <header className="admin-surface flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-red-300/85">Admin</p>
+          <p className="admin-kicker">Admin</p>
           <h1 className="text-2xl font-bold text-white">Servicios</h1>
-          <p className="text-sm text-zinc-300">Gestiona alta, edición, estado activo y orden de servicios.</p>
+          <p className="text-sm text-zinc-300">Gestiona catálogo, estado activo y prioridad de servicios.</p>
         </div>
-        <button
-          type="button"
-          onClick={openCreate}
-          className="rounded-xl border border-red-500/55 bg-red-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600"
-        >
+        <button type="button" onClick={openCreate} className="admin-btn-primary">
           Nuevo servicio
         </button>
       </header>
 
-      <div className="akai-panel p-4">
+      <div className="admin-surface p-4 sm:p-5">
         <h2 className="mb-3 text-sm font-semibold text-red-200">{isEditing ? 'Editar servicio' : 'Crear servicio'}</h2>
         <ServiceForm
           initialValues={editorTarget ? toFormValues(editorTarget) : undefined}
@@ -149,45 +145,49 @@ const AdminServices: React.FC = () => {
           onCancel={closeForm}
           submitting={submitting}
         />
-        {formError ? <p className="mt-3 text-sm text-red-300">{formError}</p> : null}
+        {formError ? <p className="mt-3 text-sm text-red-200">{formError}</p> : null}
       </div>
 
-      {error ? <div className="rounded-xl border border-red-800/55 bg-red-950/35 px-4 py-3 text-sm text-red-200">{error}</div> : null}
+      {error ? <div className="rounded-xl border border-red-700/60 bg-red-950/35 px-4 py-3 text-sm text-red-100">{error}</div> : null}
 
-      {loading ? <div className="akai-panel p-4 text-sm text-zinc-300">Cargando servicios...</div> : null}
+      {loading ? <div className="admin-surface p-4 text-sm text-zinc-300">Cargando servicios...</div> : null}
 
       {!loading && !error ? (
         <div className="grid gap-3">
           {sortedServices.map((service) => (
-            <article key={service.id} className="akai-card p-4">
+            <article key={service.id} className="akai-card p-4 sm:p-5">
               <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-lg font-semibold text-white">{service.title}</h3>
-                    <span className="akai-chip">{service.is_active ? 'active' : 'inactive'}</span>
+                    <span
+                      className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${
+                        service.is_active
+                          ? 'border-emerald-500/50 bg-emerald-950/35 text-emerald-200'
+                          : 'border-zinc-500/45 bg-zinc-950/35 text-zinc-300'
+                      }`}
+                    >
+                      {service.is_active ? 'active' : 'inactive'}
+                    </span>
                   </div>
                   <p className="mt-1 text-xs text-zinc-400">
-                    slug: {service.slug} • icon: {service.icon_name || '-'} • sort: {service.sort_order}
+                    slug: {service.slug} • icono: {service.icon_name || '-'} • orden: {service.sort_order}
                   </p>
                   <p className="mt-2 text-sm text-zinc-300">{service.description}</p>
                   {service.deliverables.length ? (
-                    <p className="mt-2 text-xs text-zinc-400">Deliverables: {service.deliverables.join(', ')}</p>
+                    <p className="mt-2 text-xs text-zinc-400">Entregables: {service.deliverables.join(', ')}</p>
                   ) : null}
                 </div>
 
                 <div className="flex shrink-0 items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => openEdit(service)}
-                    className="rounded-lg border border-red-700/45 bg-black/35 px-3 py-2 text-xs text-zinc-200 transition hover:border-red-500/65"
-                  >
+                  <button type="button" onClick={() => openEdit(service)} className="admin-btn-secondary px-3 py-2 text-xs">
                     Editar
                   </button>
                   <button
                     type="button"
                     disabled={deletingId === service.id}
                     onClick={() => void handleDelete(service)}
-                    className="rounded-lg border border-red-700/45 bg-red-950/30 px-3 py-2 text-xs text-red-200 transition hover:border-red-500/75 disabled:opacity-60"
+                    className="admin-btn-danger px-3 py-2 text-xs"
                   >
                     {deletingId === service.id ? 'Eliminando...' : 'Eliminar'}
                   </button>
