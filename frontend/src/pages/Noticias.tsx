@@ -18,7 +18,7 @@ const Noticias: React.FC = () => {
       id: 3,
       titulo: "Evento especial",
       descripcion: "Únete a nuestro evento exclusivo.",
-      imagen: "/images/LogoAkai.png",
+      imagen: "/images/123.png",
     },
   ];
 

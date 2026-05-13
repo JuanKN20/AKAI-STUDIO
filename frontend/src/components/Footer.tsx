@@ -20,13 +20,7 @@ const Footer: React.FC = () => {
         <div className="akai-panel p-6 md:p-8">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-4">
-              <img
-                src="/images/Logo/Logo.png"
-                alt="Yorurei Studio"
-                loading="lazy"
-                decoding="async"
-                className="h-12 w-auto"
-              />
+              <p className="text-lg font-black uppercase tracking-[0.2em] text-white">Yorurei Studio</p>
               <p className="text-sm leading-relaxed text-zinc-300">
                 Experiencias digitales, visuales e interactivas.
               </p>
@@ -56,20 +50,25 @@ const Footer: React.FC = () => {
                   <FaYoutube className="h-5 w-5" />
                 </a>
                 <a
-                  href="https://www.tiktok.com/@akai_studio"
-                  aria-label="TikTok"
+                  href="#"
+                  onClick={(event) => event.preventDefault()}
+                  aria-label="TikTok pendiente"
+                  title="Red social pendiente"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
                 >
                   <FaTiktok className="h-5 w-5" />
                 </a>
                 <a
-                  href="https://www.instagram.com/akai__studio/"
-                  aria-label="Instagram"
+                  href="#"
+                  onClick={(event) => event.preventDefault()}
+                  aria-label="Instagram pendiente"
+                  title="Red social pendiente"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
                 >
                   <FaInstagram className="h-5 w-5" />
                 </a>
               </div>
+              <p className="mt-2 text-xs text-zinc-500">TikTok e Instagram oficiales: pendiente.</p>
               <p className="mt-4 flex items-center gap-2 text-sm text-zinc-300">
                 <Mail className="h-4 w-4 text-red-300" />
                 contacto@yorurei-studio.dev

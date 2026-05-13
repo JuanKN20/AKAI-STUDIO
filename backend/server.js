@@ -12,6 +12,7 @@ const projectsRoutes = require('./routes/projects.routes');
 const servicesRoutes = require('./routes/services.routes');
 const productsRoutes = require('./routes/products.routes');
 const contactsRoutes = require('./routes/contacts.routes');
+const uploadsRoutes = require('./routes/uploads.routes');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -71,6 +72,7 @@ app.use('/api', projectsRoutes);
 app.use('/api', servicesRoutes);
 app.use('/api', productsRoutes);
 app.use('/api', contactsRoutes);
+app.use('/api', uploadsRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

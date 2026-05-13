@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Dominio final pendiente: reemplazar yorurei-studio.example por el dominio oficial -->
+  <!-- Dominio propio pendiente: usar URL Cloudflare actual temporalmente -->
   <url>
-    <loc>https://yorurei-studio.example/</loc>
+    <loc>https://akai-studio.juann200213.workers.dev/</loc>
   </url>
   <url>
-    <loc>https://yorurei-studio.example/services</loc>
+    <loc>https://akai-studio.juann200213.workers.dev/services</loc>
   </url>
   <url>
-    <loc>https://yorurei-studio.example/trabajos</loc>
+    <loc>https://akai-studio.juann200213.workers.dev/trabajos</loc>
   </url>
   <url>
-    <loc>https://yorurei-studio.example/juegos</loc>
+    <loc>https://akai-studio.juann200213.workers.dev/juegos</loc>
   </url>
   <url>
-    <loc>https://yorurei-studio.example/contact</loc>
+    <loc>https://akai-studio.juann200213.workers.dev/contact</loc>
   </url>
 </urlset>

@@ -70,6 +70,8 @@ export type ProductPayload = {
   published_at?: string | null;
 };
 
+export type UploadFolder = 'projects' | 'products' | 'general';
+
 const ADMIN_TOKEN_STORAGE_KEY = 'yorurei_admin_token';
 
 function toApiErrorMessage(status: number, payload: unknown): string {
@@ -143,7 +145,7 @@ async function adminRequest<T>(
   const headers = new Headers(options.headers);
   headers.set('x-admin-token', token);
 
-  if (options.body !== undefined && !headers.has('Content-Type')) {
+  if (options.body !== undefined && !headers.has('Content-Type') && !(options.body instanceof FormData)) {
     headers.set('Content-Type', 'application/json');
   }
 
@@ -155,7 +157,7 @@ async function adminRequest<T>(
       headers,
     });
   } catch {
-    throw new Error('No se pudo conectar con el backend. Verifica que esté corriendo en http://localhost:3001.');
+    throw new Error('No se pudo conectar con el backend. Verifica la URL del backend y tu conexión.');
   }
 
   let payload: unknown = null;
@@ -319,4 +321,69 @@ export function updateContactStatus(id: number, status: ContactStatus) {
     method: 'PUT',
     body: JSON.stringify({ status }),
   });
+}
+
+type UploadResponse =
+  | {
+      ok: true;
+      url: string;
+      path: string;
+    }
+  | {
+      ok: false;
+      error: string;
+    };
+
+export async function uploadAdminImage(file: File, folder: UploadFolder = 'general'): Promise<{ url: string; path: string }> {
+  const token = getStoredAdminToken();
+  if (!token) {
+    throw new Error('No se encontró token admin. Inicia sesión para continuar.');
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('folder', folder);
+
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}/api/admin/uploads/image`, {
+      method: 'POST',
+      headers: {
+        'x-admin-token': token,
+      },
+      body: formData,
+    });
+  } catch {
+    throw new Error('No se pudo conectar con el backend. Verifica la URL del backend y tu conexión.');
+  }
+
+  let payload: unknown = null;
+  try {
+    payload = await response.json();
+  } catch {
+    payload = null;
+  }
+
+  if (!response.ok) {
+    throw new Error(toApiErrorMessage(response.status, payload));
+  }
+
+  if (!payload || typeof payload !== 'object' || !('ok' in payload)) {
+    throw new Error('Respuesta inesperada del backend.');
+  }
+
+  const uploadPayload = payload as UploadResponse;
+  if (!uploadPayload.ok) {
+    throw new Error(uploadPayload.error || 'No se pudo subir la imagen.');
+  }
+
+  if (!uploadPayload.url || !uploadPayload.path) {
+    throw new Error('Respuesta inesperada del backend.');
+  }
+
+  return {
+    url: uploadPayload.url,
+    path: uploadPayload.path,
+  };
 }

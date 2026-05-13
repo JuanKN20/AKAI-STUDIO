@@ -101,17 +101,7 @@ const Home: React.FC = () => {
   return (
     <div className="w-full">
       <section className="relative isolate overflow-hidden pt-28 sm:pt-32 lg:pt-36">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 -z-20 h-full w-full object-cover opacity-50"
-        >
-          <source src="/videos/LogoAkai.mp4" type="video/mp4" />
-          Tu navegador no soporta video.
-        </video>
+        <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_20%_20%,rgba(179,23,47,0.22),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(255,59,92,0.14),transparent_40%),linear-gradient(180deg,#0a0b0f_0%,#050506_58%,#08090d_100%)]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/75 to-black/95" />
 
         <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:pb-24 lg:px-8">

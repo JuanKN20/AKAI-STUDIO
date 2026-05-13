@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ContentStatus } from '../adminApi';
+import { ContentStatus, uploadAdminImage } from '../adminApi';
 
 export type ProjectFormValues = {
   title: string;
@@ -42,9 +42,17 @@ const defaultValues: ProjectFormValues = {
 
 const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCancel, submitting }) => {
   const [form, setForm] = useState<ProjectFormValues>(initialValues || defaultValues);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState('');
+  const [uploadError, setUploadError] = useState('');
 
   useEffect(() => {
     setForm(initialValues || defaultValues);
+    setCoverFile(null);
+    setUploadingCover(false);
+    setUploadSuccess('');
+    setUploadError('');
   }, [initialValues]);
 
   const handleChange = (field: keyof ProjectFormValues, value: string | number | boolean) => {
@@ -57,6 +65,29 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await onSubmit(form);
+  };
+
+  const handleCoverUpload = async () => {
+    if (!coverFile) {
+      setUploadError('Selecciona una imagen antes de subir.');
+      setUploadSuccess('');
+      return;
+    }
+
+    setUploadingCover(true);
+    setUploadError('');
+    setUploadSuccess('');
+
+    try {
+      const { url } = await uploadAdminImage(coverFile, 'projects');
+      handleChange('coverImageUrl', url);
+      setUploadSuccess('Imagen subida correctamente.');
+      setCoverFile(null);
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Error al subir imagen.');
+    } finally {
+      setUploadingCover(false);
+    }
   };
 
   return (
@@ -169,7 +200,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
           />
         </div>
 
-        <div>
+        <div className="md:col-span-2">
           <label htmlFor="project-cover-image-url" className="admin-label">
             Cover image URL
           </label>
@@ -179,6 +210,32 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ initialValues, onSubmit, onCa
             onChange={(event) => handleChange('coverImageUrl', event.target.value)}
             className="admin-input"
           />
+          <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+            <input
+              id="project-cover-image-file"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/svg+xml"
+              onChange={(event) => setCoverFile(event.target.files?.[0] || null)}
+              className="admin-input file:mr-3 file:rounded-lg file:border-0 file:bg-red-900/45 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-red-100"
+            />
+            <button
+              type="button"
+              disabled={uploadingCover}
+              onClick={() => void handleCoverUpload()}
+              className="admin-btn-secondary"
+            >
+              {uploadingCover ? 'Subiendo...' : 'Subir imagen'}
+            </button>
+          </div>
+          {uploadSuccess ? <p className="mt-2 text-xs text-emerald-300">{uploadSuccess}</p> : null}
+          {uploadError ? <p className="mt-2 text-xs text-red-300">{uploadError}</p> : null}
+          {form.coverImageUrl ? (
+            <img
+              src={form.coverImageUrl}
+              alt="Preview portada proyecto"
+              className="mt-3 h-24 w-40 rounded-lg border border-red-900/35 object-cover"
+            />
+          ) : null}
         </div>
 
         <div>

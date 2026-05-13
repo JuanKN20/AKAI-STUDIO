@@ -10,7 +10,7 @@ const Login: React.FC = () => {
     <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-gray-900 pt-24 pb-12 px-4 overflow-x-hidden">
       <div className="w-full max-w-md bg-black/80 border border-red-800/40 rounded-2xl shadow-2xl px-6 py-8 backdrop-blur">
         <div className="flex flex-col items-center mb-6">
-          <img src="/images/Logo/Logo.png" alt="Yorurei Studio" className="h-12 mb-2" />
+          <p className="text-base font-black uppercase tracking-[0.22em] text-white">Yorurei Studio</p>
           <h1 className="text-xl font-semibold text-red-500">Área interna en desarrollo</h1>
           <p className="mt-1 text-xs text-gray-400 text-center">
             Esta ruta está reservada para acceso interno de Yorurei Studio y aún no está habilitada para clientes.

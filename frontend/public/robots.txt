@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Dominio final pendiente: reemplazar yorurei-studio.example por el dominio oficial
-Sitemap: https://yorurei-studio.example/sitemap.xml
+# Dominio propio pendiente: usar URL Cloudflare actual temporalmente
+Sitemap: https://akai-studio.juann200213.workers.dev/sitemap.xml

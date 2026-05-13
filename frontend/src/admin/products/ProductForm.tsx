@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ContentStatus } from '../adminApi';
+import { ContentStatus, uploadAdminImage } from '../adminApi';
 
 export type ProductFormValues = {
   title: string;
@@ -42,9 +42,21 @@ const defaultValues: ProductFormValues = {
 
 const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCancel, submitting }) => {
   const [form, setForm] = useState<ProductFormValues>(initialValues || defaultValues);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState('');
+  const [uploadError, setUploadError] = useState('');
 
   useEffect(() => {
     setForm(initialValues || defaultValues);
+    setCoverFile(null);
+    setGalleryFiles([]);
+    setUploadingCover(false);
+    setUploadingGallery(false);
+    setUploadSuccess('');
+    setUploadError('');
   }, [initialValues]);
 
   const handleChange = (field: keyof ProductFormValues, value: string | number | boolean) => {
@@ -57,6 +69,57 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await onSubmit(form);
+  };
+
+  const handleCoverUpload = async () => {
+    if (!coverFile) {
+      setUploadError('Selecciona una imagen de portada antes de subir.');
+      setUploadSuccess('');
+      return;
+    }
+
+    setUploadingCover(true);
+    setUploadError('');
+    setUploadSuccess('');
+
+    try {
+      const { url } = await uploadAdminImage(coverFile, 'products');
+      handleChange('coverImageUrl', url);
+      setUploadSuccess('Imagen de portada subida correctamente.');
+      setCoverFile(null);
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Error al subir imagen.');
+    } finally {
+      setUploadingCover(false);
+    }
+  };
+
+  const handleGalleryUpload = async () => {
+    if (galleryFiles.length === 0) {
+      setUploadError('Selecciona una o varias imágenes para la galería.');
+      setUploadSuccess('');
+      return;
+    }
+
+    setUploadingGallery(true);
+    setUploadError('');
+    setUploadSuccess('');
+
+    try {
+      const uploaded = await Promise.all(galleryFiles.map((file) => uploadAdminImage(file, 'products')));
+      const currentUrls = form.galleryUrlsText
+        .split(/[\n,]+/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+      const merged = Array.from(new Set([...currentUrls, ...uploaded.map((item) => item.url)]));
+      handleChange('galleryUrlsText', merged.join('\n'));
+      setUploadSuccess('Imágenes de galería subidas correctamente.');
+      setGalleryFiles([]);
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Error al subir imágenes de galería.');
+    } finally {
+      setUploadingGallery(false);
+    }
   };
 
   return (
@@ -156,7 +219,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
           </select>
         </div>
 
-        <div>
+        <div className="md:col-span-2">
           <label htmlFor="product-cover-image-url" className="admin-label">
             Cover image URL
           </label>
@@ -166,6 +229,30 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
             onChange={(event) => handleChange('coverImageUrl', event.target.value)}
             className="admin-input"
           />
+          <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+            <input
+              id="product-cover-image-file"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/svg+xml"
+              onChange={(event) => setCoverFile(event.target.files?.[0] || null)}
+              className="admin-input file:mr-3 file:rounded-lg file:border-0 file:bg-red-900/45 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-red-100"
+            />
+            <button
+              type="button"
+              disabled={uploadingCover}
+              onClick={() => void handleCoverUpload()}
+              className="admin-btn-secondary"
+            >
+              {uploadingCover ? 'Subiendo...' : 'Subir imagen'}
+            </button>
+          </div>
+          {form.coverImageUrl ? (
+            <img
+              src={form.coverImageUrl}
+              alt="Preview portada producto"
+              className="mt-3 h-24 w-40 rounded-lg border border-red-900/35 object-cover"
+            />
+          ) : null}
         </div>
 
         <div>
@@ -192,6 +279,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
             onChange={(event) => handleChange('galleryUrlsText', event.target.value)}
             className="admin-textarea"
           />
+          <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+            <input
+              id="product-gallery-files"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/svg+xml"
+              multiple
+              onChange={(event) => setGalleryFiles(Array.from(event.target.files || []))}
+              className="admin-input file:mr-3 file:rounded-lg file:border-0 file:bg-red-900/45 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-red-100"
+            />
+            <button
+              type="button"
+              disabled={uploadingGallery}
+              onClick={() => void handleGalleryUpload()}
+              className="admin-btn-secondary"
+            >
+              {uploadingGallery ? 'Subiendo...' : 'Subir a galería'}
+            </button>
+          </div>
         </div>
 
         <div>
@@ -219,6 +324,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialValues, onSubmit, onCa
           />
         </div>
       </div>
+
+      {uploadSuccess ? <p className="text-xs text-emerald-300">{uploadSuccess}</p> : null}
+      {uploadError ? <p className="text-xs text-red-300">{uploadError}</p> : null}
 
       <label htmlFor="product-featured" className="inline-flex items-center gap-2 text-sm text-zinc-200">
         <input

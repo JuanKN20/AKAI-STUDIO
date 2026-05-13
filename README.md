@@ -2,6 +2,13 @@
 
 Repositorio principal de Yorurei Studio con separacion profesional de frontend y backend.
 
+## URLs actuales
+
+- Frontend publico (Cloudflare): `https://akai-studio.juann200213.workers.dev`
+- Backend publico (Render): `https://yorurei-studio-backend1.onrender.com`
+
+Nota: el dominio propio de Yorurei Studio sigue pendiente. Mientras tanto se usa la URL real de Cloudflare.
+
 ## Estructura
 
 - `frontend/`: aplicacion web React + Vite + Tailwind desplegable en Cloudflare.
@@ -34,3 +41,4 @@ El comando de build sigue siendo `npm run build` y el output directory sigue sie
 
 - La carpeta raiz puede mantenerse como `AKAI-STUDIO` temporalmente para evitar impactos en rutas locales.
 - El `name` de `frontend/wrangler.toml` se mantiene por ahora para no afectar despliegues existentes.
+- Nombres internos `akai-*` en configuraciones/CSS pueden limpiarse despues sin impacto visual inmediato.

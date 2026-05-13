@@ -44,11 +44,10 @@ const Navbar: React.FC = () => {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-red-900/30 bg-black/60 backdrop-blur-xl">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/images/Logo/Logo.png" alt="Yorurei Studio" className="h-10 w-auto sm:h-11" />
-          <div className="hidden md:block">
-            <p className="text-xs uppercase tracking-[0.24em] text-red-300/80">Yorurei Studio</p>
-            <p className="text-sm text-zinc-300">Creative Tech Studio</p>
+        <Link to="/" className="flex items-center">
+          <div className="leading-tight">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-white sm:text-base">Yorurei Studio</p>
+            <p className="hidden text-[11px] text-zinc-300 md:block">Creative Tech Studio</p>
           </div>
         </Link>
 

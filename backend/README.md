@@ -7,6 +7,13 @@ API backend en Node.js + Express + Prisma para gestionar contenido de Yorurei St
 - productos
 - contactos
 
+## URLs actuales
+
+- Frontend publico (Cloudflare): `https://akai-studio.juann200213.workers.dev`
+- Backend publico (Render): `https://yorurei-studio-backend1.onrender.com`
+
+Nota: el dominio propio de Yorurei Studio sigue pendiente.
+
 ## Stack local
 
 - Node.js 18+
@@ -28,6 +35,9 @@ Variables requeridas:
 - `DIRECT_URL`
 - `FRONTEND_ORIGIN`
 - `ADMIN_API_TOKEN`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_STORAGE_BUCKET`
 - `PORT`
 
 Nota CORS en producción:
@@ -41,6 +51,25 @@ Nota CORS en producción:
 - `DIRECT_URL`: conexión directa, usada por Prisma para migraciones/comandos de schema.
 - En Render/Railway debes configurar **ambas** variables.
 - Nunca subas contraseñas reales al repositorio.
+
+### Supabase Storage (imagenes)
+
+Variables nuevas del backend:
+
+- `SUPABASE_URL`: URL del proyecto Supabase.
+- `SUPABASE_SERVICE_ROLE_KEY`: clave de servidor para subir archivos.
+- `SUPABASE_STORAGE_BUCKET`: bucket destino (recomendado: `yorurei-media`).
+
+Importante:
+
+- `SUPABASE_SERVICE_ROLE_KEY` solo debe existir en backend (Render/local server).
+- Nunca expongas esta key en React/frontend.
+
+Bucket requerido (paso manual en Supabase):
+
+- Crear bucket `yorurei-media`.
+- Configurarlo como publico para servir imagenes en el sitio web.
+- Si en el futuro se usa bucket privado, se deben servir signed URLs desde backend.
 
 ## Flujo local recomendado (PowerShell)
 
@@ -129,6 +158,7 @@ npm run dev
 - `DELETE /api/admin/products/:id`
 - `GET /api/admin/contacts`
 - `PUT /api/admin/contacts/:id/status`
+- `POST /api/admin/uploads/image`
 
 Header requerido:
 
@@ -161,7 +191,7 @@ Pasos sugeridos:
 5. Ejecutar migraciones con `npx prisma migrate deploy`.
 6. Ejecutar seed si aplica (`npm run prisma:seed`).
 7. Probar `GET /api/health`.
-8. Actualizar frontend Cloudflare con `VITE_API_BASE_URL=https://URL-DEL-BACKEND`.
+8. Actualizar frontend Cloudflare con `VITE_API_BASE_URL=https://yorurei-studio-backend1.onrender.com`.
 
 ## SQL legacy
 

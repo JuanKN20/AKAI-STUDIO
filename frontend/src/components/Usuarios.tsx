@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "../services/api";
 
 interface Usuario {
   id: number;
@@ -10,7 +11,7 @@ const Usuarios: React.FC = () => {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/usuarios")
+    fetch(`${API_BASE_URL}/api/usuarios`)
       .then((res) => res.json())
       .then((data) => setUsuarios(data))
       .catch((err) => console.error("Error:", err));
@@ -20,7 +21,7 @@ const Usuarios: React.FC = () => {
     <div className="akai-page">
       <h1 className="akai-section-title">Usuarios registrados</h1>
       <p className="akai-section-subtitle">
-        Vista interna de prueba conectada al backend local en <code>localhost:3001</code>. Esta ruta no forma parte de la navegación pública.
+        Vista interna de prueba conectada al endpoint <code>/api/usuarios</code> del backend configurado. Esta ruta no forma parte de la navegación pública.
       </p>
 
       <ul className="mt-8 space-y-3">

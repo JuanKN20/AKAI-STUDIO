@@ -131,20 +131,25 @@ const Contact: React.FC = () => {
               <FaYoutube className="h-5 w-5" />
             </a>
             <a
-              href="https://www.tiktok.com/@akai_studio"
-              aria-label="TikTok"
+              href="#"
+              onClick={(event) => event.preventDefault()}
+              aria-label="TikTok pendiente"
+              title="Red social pendiente"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
             >
               <FaTiktok className="h-5 w-5" />
             </a>
             <a
-              href="https://www.instagram.com/akai__studio/"
-              aria-label="Instagram"
+              href="#"
+              onClick={(event) => event.preventDefault()}
+              aria-label="Instagram pendiente"
+              title="Red social pendiente"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
             >
               <FaInstagram className="h-5 w-5" />
             </a>
           </div>
+          <p className="mt-2 text-xs text-zinc-500">TikTok e Instagram oficiales: pendiente.</p>
         </section>
 
         <section id="contact-form" className="akai-panel p-6">

@@ -1,5 +1,12 @@
 ﻿# Checklist de Despliegue - Yorurei Studio Backend
 
+## URLs actuales
+
+- Frontend publico (Cloudflare): `https://akai-studio.juann200213.workers.dev`
+- Backend publico (Render): `https://yorurei-studio-backend1.onrender.com`
+
+Nota: el dominio propio de Yorurei Studio sigue pendiente.
+
 ## 1) Backend (Render / Railway)
 
 - Root directory: `backend`
@@ -14,6 +21,9 @@ Variables de entorno obligatorias:
 - `DIRECT_URL`
 - `FRONTEND_ORIGIN`
 - `ADMIN_API_TOKEN`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_STORAGE_BUCKET` (ejemplo: `yorurei-media`)
 - `PORT` (si la plataforma lo solicita)
 
 Nota CORS:
@@ -51,20 +61,33 @@ Nunca subas contraseñas reales al repositorio.
 
 Variables de entorno:
 
-- `VITE_API_BASE_URL=https://URL-DEL-BACKEND`
+- `VITE_API_BASE_URL=https://yorurei-studio-backend1.onrender.com`
 - `VITE_SHOW_INTERNAL_ROUTES=false`
 
 ## 5) Verificaciones post-deploy
 
-- `GET https://URL-DEL-BACKEND/api/health`
-- `GET https://URL-DEL-BACKEND/api/services`
-- `GET https://URL-DEL-BACKEND/api/projects`
-- `GET https://URL-DEL-BACKEND/api/products`
+- `GET https://yorurei-studio-backend1.onrender.com/api/health`
+- `GET https://yorurei-studio-backend1.onrender.com/api/services`
+- `GET https://yorurei-studio-backend1.onrender.com/api/projects`
+- `GET https://yorurei-studio-backend1.onrender.com/api/products`
 - Probar envío del formulario público (`POST /api/contacts`).
 - Verificar CORS: `FRONTEND_ORIGIN` debe coincidir exactamente con la URL de Cloudflare Pages.
 
 ## 6) Seguridad mínima
 
 - `ADMIN_API_TOKEN` largo y aleatorio.
+- `SUPABASE_SERVICE_ROLE_KEY` solo en backend (nunca en frontend).
 - No usar `VITE_SHOW_INTERNAL_ROUTES=true` en producción.
 - Planificar auth real para admin (usuarios/sesiones/JWT y roles).
+
+## 7) Storage de imagenes (paso manual en Supabase)
+
+1. Crear bucket `yorurei-media` en Supabase Storage.
+2. Marcar el bucket como publico para exponer URLs de imagen.
+3. Configurar en Render:
+   - `SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `SUPABASE_STORAGE_BUCKET=yorurei-media`
+4. Manual Deploy -> Deploy latest commit.
+
+

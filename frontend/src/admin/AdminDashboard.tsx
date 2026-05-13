@@ -70,7 +70,7 @@ const AdminDashboard: React.FC = () => {
         }
       } catch {
         if (mounted) {
-          setError('No se pudo conectar con el backend. Verifica que esté corriendo en http://localhost:3001.');
+          setError('No se pudo conectar con el backend. Verifica la URL del backend y tu conexión.');
         }
       } finally {
         if (mounted) {
