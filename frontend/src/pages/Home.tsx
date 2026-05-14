@@ -51,8 +51,8 @@ const differentiators = [
 const Home: React.FC = () => {
   const [services, setServices] = useState<ServiceItem[]>(fallbackServices);
   const [projects, setProjects] = useState<ProjectItem[]>(fallbackProjects);
-  const [usingFallbackServices, setUsingFallbackServices] = useState(true);
-  const [usingFallbackProjects, setUsingFallbackProjects] = useState(true);
+  const [isLoadingServices, setIsLoadingServices] = useState(true);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
 
   useEffect(() => {
     let mounted = true;
@@ -63,12 +63,16 @@ const Home: React.FC = () => {
         if (!mounted) return;
         if (apiServices.length > 0) {
           setServices(apiServices);
-          setUsingFallbackServices(false);
+        } else {
+          setServices(fallbackServices);
         }
       } catch {
         if (!mounted) return;
         setServices(fallbackServices);
-        setUsingFallbackServices(true);
+      } finally {
+        if (mounted) {
+          setIsLoadingServices(false);
+        }
       }
     };
 
@@ -78,12 +82,16 @@ const Home: React.FC = () => {
         if (!mounted) return;
         if (apiProjects.length > 0) {
           setProjects(apiProjects);
-          setUsingFallbackProjects(false);
+        } else {
+          setProjects(fallbackProjects);
         }
       } catch {
         if (!mounted) return;
         setProjects(fallbackProjects);
-        setUsingFallbackProjects(true);
+      } finally {
+        if (mounted) {
+          setIsLoadingProjects(false);
+        }
       }
     };
 
@@ -146,15 +154,15 @@ const Home: React.FC = () => {
               <article className="akai-card p-5">
                 <p className="text-xs uppercase tracking-[0.24em] text-red-300">Misión</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ofrecer soluciones creativas e innovadoras en animación, videojuegos, desarrollo web, modelado 3D e inteligencia
-                  artificial, diseñadas para resolver necesidades de clientes y crear entretenimiento de alta calidad.
+                  Diseñamos y desarrollamos soluciones digitales, visuales e interactivas que combinan creatividad, tecnología y
+                  estrategia para ayudar a marcas, emprendedores y proyectos a construir presencia, productos y experiencias memorables.
                 </p>
               </article>
               <article className="akai-card p-5">
                 <p className="text-xs uppercase tracking-[0.24em] text-red-300">Visión</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-                  Ser un estudio referente en la creación de experiencias innovadoras y visualmente impactantes, destacando por calidad,
-                  creatividad, pasión, innovación y uso de tecnologías de vanguardia.
+                  Consolidarnos como un estudio creativo y tecnológico referente en experiencias digitales, videojuegos, animación,
+                  desarrollo web, modelado 3D e inteligencia artificial, destacando por calidad visual, innovación y ejecución técnica.
                 </p>
               </article>
             </div>
@@ -172,21 +180,37 @@ const Home: React.FC = () => {
           Integramos tecnología, creatividad y producción multimedia para construir soluciones digitales con identidad y alto impacto
           visual.
         </p>
-        {usingFallbackServices ? <p className="mt-3 text-xs text-zinc-400">Mostrando servicios locales de respaldo.</p> : null}
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {topServices.map((service) => {
-            const Icon = resolveServiceIcon(service);
-            return (
-              <article key={service.id} className="akai-card p-6">
-                <div className="inline-flex rounded-xl border border-red-500/35 bg-red-950/40 p-2 text-red-200">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-white">{service.title}</h3>
-                <p className="mt-2 text-sm text-zinc-300">{service.description}</p>
-              </article>
-            );
-          })}
+          {isLoadingServices ? (
+            <article className="akai-card p-6 md:col-span-2 xl:col-span-3">
+              <p className="text-sm text-zinc-300">Cargando servicios principales del estudio...</p>
+            </article>
+          ) : topServices.length > 0 ? (
+            topServices.map((service) => {
+              const Icon = resolveServiceIcon(service);
+              return (
+                <Link key={service.id} to="/services" className="akai-card block p-6" aria-label={`Ver servicios de ${service.title}`}>
+                  <div className="inline-flex rounded-xl border border-red-500/35 bg-red-950/40 p-2 text-red-200">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">{service.title}</h3>
+                  <p className="mt-2 text-sm text-zinc-300">{service.description}</p>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-red-200">Ver servicios</p>
+                </Link>
+              );
+            })
+          ) : (
+            <article className="akai-card p-6 md:col-span-2 xl:col-span-3">
+              <h3 className="text-lg font-semibold text-white">Servicios principales</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                Estamos actualizando esta sección. Puedes revisar todas las capacidades del estudio en la página de servicios.
+              </p>
+              <Link to="/services" className="mt-4 inline-flex text-sm font-semibold text-red-200 underline underline-offset-4">
+                Ir a servicios
+              </Link>
+            </article>
+          )}
         </div>
       </section>
 
@@ -196,19 +220,35 @@ const Home: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Destacados</p>
         </div>
         <h2 className="akai-section-title mt-3">Proyectos destacados</h2>
-        {usingFallbackProjects ? <p className="mt-3 text-xs text-zinc-400">Mostrando proyectos locales de respaldo.</p> : null}
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <article key={project.id} className="akai-card p-5">
-              <p className="text-xs uppercase tracking-[0.16em] text-red-300">{project.category || 'Proyecto'}</p>
-              <h3 className="mt-2 text-lg font-semibold text-white">{project.title}</h3>
-              <p className="mt-2 text-sm text-zinc-300">{project.short_description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="akai-chip">{projectStatusLabel(project.status)}</span>
-                {project.featured ? <span className="akai-chip">featured</span> : null}
-              </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {isLoadingProjects ? (
+            <article className="akai-card p-6 md:col-span-2 xl:col-span-3">
+              <p className="text-sm text-zinc-300">Cargando proyectos seleccionados...</p>
             </article>
-          ))}
+          ) : featuredProjects.length > 0 ? (
+            featuredProjects.map((project) => (
+              <Link key={project.id} to="/trabajos" className="akai-card block p-5" aria-label={`Ver proyecto ${project.title}`}>
+                <p className="text-xs uppercase tracking-[0.16em] text-red-300">{project.category || 'Proyecto'}</p>
+                <h3 className="mt-2 text-lg font-semibold text-white">{project.title}</h3>
+                <p className="mt-2 text-sm text-zinc-300">{project.short_description}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="akai-chip">{projectStatusLabel(project.status)}</span>
+                  {project.featured ? <span className="akai-chip">Destacado</span> : null}
+                </div>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-red-200">Ver proyectos</p>
+              </Link>
+            ))
+          ) : (
+            <article className="akai-card p-6 md:col-span-2 xl:col-span-3">
+              <h3 className="text-lg font-semibold text-white">Proyectos seleccionados</h3>
+              <p className="mt-2 text-sm text-zinc-300">
+                Estamos organizando casos para publicación. Puedes visitar la sección de trabajos para ver el portafolio completo.
+              </p>
+              <Link to="/trabajos" className="mt-4 inline-flex text-sm font-semibold text-red-200 underline underline-offset-4">
+                Ir a proyectos
+              </Link>
+            </article>
+          )}
         </div>
       </section>
 

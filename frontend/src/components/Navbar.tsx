@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
         <Link to="/" className="flex items-center">
           <div className="leading-tight">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-white sm:text-base">Yorurei Studio</p>
-            <p className="hidden text-[11px] text-zinc-300 md:block">Creative Tech Studio</p>
+            <p className="hidden text-[11px] text-zinc-300 md:block">Estudio creativo y tecnológico</p>
           </div>
         </Link>
 

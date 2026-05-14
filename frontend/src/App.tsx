@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Usuarios from './components/Usuarios';
 import Trabajos from './pages/Trabajos';
+import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 import Login from './pages/Login';
 import AdminLayout from './admin/AdminLayout';
@@ -67,7 +68,7 @@ function AppContent() {
             <Route path="/admin/*" element={<Navigate to="/" replace />} />
           )}
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       {!isAdminPath ? <Footer /> : null}

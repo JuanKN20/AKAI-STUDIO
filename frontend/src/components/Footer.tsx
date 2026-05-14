@@ -45,34 +45,36 @@ const Footer: React.FC = () => {
                 <a
                   href="https://www.youtube.com/channel/UCyPRSLaqSn6jiuHRjz-952g/posts?pvf=CAE%253D"
                   aria-label="YouTube"
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
                 >
                   <FaYoutube className="h-5 w-5" />
                 </a>
-                <a
-                  href="#"
-                  onClick={(event) => event.preventDefault()}
+                <span
+                  role="img"
                   aria-label="TikTok pendiente"
-                  title="Red social pendiente"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
+                  title="Red oficial pendiente"
+                  aria-disabled="true"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-900/45 bg-black/35 text-zinc-500"
                 >
                   <FaTiktok className="h-5 w-5" />
-                </a>
-                <a
-                  href="#"
-                  onClick={(event) => event.preventDefault()}
+                </span>
+                <span
+                  role="img"
                   aria-label="Instagram pendiente"
-                  title="Red social pendiente"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-700/45 bg-black/45 text-red-200 transition hover:-translate-y-0.5 hover:border-red-400/70 hover:text-white"
+                  title="Red oficial pendiente"
+                  aria-disabled="true"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-900/45 bg-black/35 text-zinc-500"
                 >
                   <FaInstagram className="h-5 w-5" />
-                </a>
+                </span>
               </div>
               <p className="mt-2 text-xs text-zinc-500">TikTok e Instagram oficiales: pendiente.</p>
-              <p className="mt-4 flex items-center gap-2 text-sm text-zinc-300">
+              <Link to="/contact" className="mt-4 inline-flex items-center gap-2 text-sm text-zinc-300 transition hover:text-red-200">
                 <Mail className="h-4 w-4 text-red-300" />
-                contacto@yorurei-studio.dev
-              </p>
+                Contacto desde formulario
+              </Link>
             </div>
           </div>
 

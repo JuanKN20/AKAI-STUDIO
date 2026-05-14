@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -6,9 +6,9 @@ type ServiceItem = {
   id: number;
   title: string;
   description: string;
-  video: string;
   link: string;
   cta: string;
+  toneClass: string;
 };
 
 const services: ServiceItem[] = [
@@ -17,42 +17,45 @@ const services: ServiceItem[] = [
     title: "Desarrollo de videojuegos",
     description:
       "Creamos prototipos y experiencias jugables donde se combinan narrativa, arte y tecnología.",
-    video: "/videos/videojuegos.mp4",
     link: "/juegos",
     cta: "Explorar división de juegos",
+    toneClass:
+      "bg-[radial-gradient(circle_at_15%_10%,rgba(179,23,47,0.35),transparent_48%),radial-gradient(circle_at_85%_20%,rgba(255,59,92,0.18),transparent_42%),linear-gradient(135deg,rgba(5,5,8,0.96)_0%,rgba(16,8,10,0.9)_55%,rgba(10,12,16,0.95)_100%)]",
   },
   {
     id: 2,
     title: "Animación y modelado 3D",
     description:
       "Desarrollamos piezas visuales, personajes y escenas para contenido, marca y entretenimiento.",
-    video: "/videos/animacion.mp4",
     link: "/services",
     cta: "Ver servicios",
+    toneClass:
+      "bg-[radial-gradient(circle_at_80%_12%,rgba(255,59,92,0.24),transparent_40%),radial-gradient(circle_at_24%_80%,rgba(179,23,47,0.22),transparent_46%),linear-gradient(135deg,rgba(6,7,10,0.96)_0%,rgba(15,8,12,0.9)_62%,rgba(12,11,18,0.94)_100%)]",
   },
   {
     id: 3,
     title: "Plataformas web",
     description:
       "Construimos productos digitales modernos, escalables y alineados con objetivos de negocio.",
-    video: "/videos/web.mp4",
     link: "/services",
     cta: "Conocer capacidades",
+    toneClass:
+      "bg-[radial-gradient(circle_at_22%_20%,rgba(179,23,47,0.3),transparent_45%),radial-gradient(circle_at_75%_75%,rgba(255,59,92,0.16),transparent_46%),linear-gradient(135deg,rgba(8,9,12,0.96)_0%,rgba(18,10,14,0.9)_58%,rgba(9,12,17,0.95)_100%)]",
   },
   {
     id: 4,
     title: "Soluciones interactivas e IA",
     description:
       "Exploramos automatización y experiencias inteligentes para nuevas líneas de producto.",
-    video: "/videos/modelado.mp4",
     link: "/contact",
     cta: "Hablar con Yorurei Studio",
+    toneClass:
+      "bg-[radial-gradient(circle_at_84%_14%,rgba(255,59,92,0.24),transparent_45%),radial-gradient(circle_at_15%_82%,rgba(179,23,47,0.22),transparent_44%),linear-gradient(135deg,rgba(7,7,10,0.96)_0%,rgba(18,9,13,0.9)_56%,rgba(12,14,18,0.95)_100%)]",
   },
 ];
 
 const ServicesCarousel: React.FC = () => {
   const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
   const currentService = services[currentServiceIndex];
 
@@ -63,13 +66,6 @@ const ServicesCarousel: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-      void videoRef.current.play();
-    }
-  }, [currentServiceIndex]);
-
   return (
     <section className="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 sm:px-6 md:pt-10 lg:px-8">
       <div className="flex items-center gap-3">
@@ -78,21 +74,10 @@ const ServicesCarousel: React.FC = () => {
       </div>
       <h2 className="akai-section-title mt-3">Capacidades de Yorurei Studio</h2>
 
-      <div className="relative mt-8 overflow-hidden rounded-3xl border border-red-900/40 shadow-akai-soft">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          preload="metadata"
-          className="h-[420px] w-full object-cover md:h-[520px]"
-          onEnded={() => setCurrentServiceIndex((prevIndex) => (prevIndex + 1) % services.length)}
-        >
-          <source src={currentService.video} type="video/mp4" />
-          Tu navegador no soporta video.
-        </video>
-
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/65" />
+      <div className="relative mt-8 min-h-[420px] overflow-hidden rounded-3xl border border-red-900/40 shadow-akai-soft md:min-h-[520px]">
+        <div className={`absolute inset-0 transition-all duration-500 ${currentService.toneClass}`} />
+        <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:34px_34px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/70" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35" />
 
         <div className="absolute inset-0 flex items-end p-5 sm:p-8 md:p-10">
@@ -111,7 +96,7 @@ const ServicesCarousel: React.FC = () => {
           </div>
         </div>
 
-        <div className="absolute right-5 top-5 flex flex-col gap-2">
+        <div className="absolute bottom-5 left-5 flex gap-2 md:bottom-auto md:left-auto md:right-5 md:top-5 md:flex-col">
           {services.map((service, index) => (
             <button
               type="button"

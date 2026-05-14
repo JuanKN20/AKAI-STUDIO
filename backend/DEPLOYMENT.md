@@ -58,6 +58,9 @@ Nunca subas contraseñas reales al repositorio.
 - Root directory: `frontend`
 - Build command: `npm run build`
 - Output directory: `dist`
+- Confirmar fallback SPA:
+  - `frontend/public/_redirects` con `/* /index.html 200`
+  - o `frontend/wrangler.toml` con `not_found_handling = "single-page-application"`
 
 Variables de entorno:
 
