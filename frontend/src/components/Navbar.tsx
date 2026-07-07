@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center">
           <div className="leading-tight">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-white sm:text-base">Yorurei Studio</p>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-white sm:text-base">Kyoru Studio</p>
             <p className="hidden text-[11px] text-zinc-300 md:block">Estudio creativo y tecnológico</p>
           </div>
         </Link>

@@ -1,4 +1,4 @@
--- Yorurei Studio initial seed data
+-- Kyoru Studio initial seed data
 -- Run after YorureiStudioDB.sql
 
 INSERT INTO categories (name, slug, description)
@@ -104,10 +104,10 @@ INSERT INTO projects (
 )
 VALUES
   (
-    'Yorurei Studio Web',
-    'yorurei-studio-web',
+    'Kyoru Studio Web',
+    'kyoru-studio-web',
     'Desarrollo web',
-    'Sitio institucional de Yorurei Studio para presentar servicios, proyectos y posicionamiento.',
+    'Sitio institucional de Kyoru Studio para presentar servicios, proyectos y posicionamiento.',
     'Plataforma corporativa para comunicar oferta de valor del estudio creativo y tecnológico.',
     'published',
     '/images/1013143.png',

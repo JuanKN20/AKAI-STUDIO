@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
         <div className="akai-panel p-6 md:p-8">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-4">
-              <p className="text-lg font-black uppercase tracking-[0.2em] text-white">Yorurei Studio</p>
+              <p className="text-lg font-black uppercase tracking-[0.2em] text-white">Kyoru Studio</p>
               <p className="text-sm leading-relaxed text-zinc-300">
                 Experiencias digitales, visuales e interactivas.
               </p>
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 border-t border-red-900/30 pt-5 text-xs text-zinc-400 md:flex-row md:items-center md:justify-between">
-            <p>© {year} Yorurei Studio. Todos los derechos reservados.</p>
+            <p>© {year} Kyoru Studio. Todos los derechos reservados.</p>
             <p>Empresa creativa y tecnológica en desarrollo.</p>
           </div>
         </div>

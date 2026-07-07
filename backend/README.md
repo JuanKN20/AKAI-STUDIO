@@ -1,6 +1,6 @@
-ï»¿# Yorurei Studio Backend
+# Kyoru Studio Backend
 
-API backend en Node.js + Express + Prisma para gestionar contenido de Yorurei Studio:
+API backend en Node.js + Express + Prisma para gestionar contenido de Kyoru Studio:
 
 - proyectos
 - servicios
@@ -12,7 +12,7 @@ API backend en Node.js + Express + Prisma para gestionar contenido de Yorurei St
 - Frontend publico (Cloudflare): `https://akai-studio.juann200213.workers.dev`
 - Backend publico (Render): `https://yorurei-studio-backend1.onrender.com`
 
-Nota: el dominio propio de Yorurei Studio sigue pendiente.
+Nota: el dominio propio de Kyoru Studio sigue pendiente.
 
 ## Stack local
 
@@ -40,17 +40,17 @@ Variables requeridas:
 - `SUPABASE_STORAGE_BUCKET`
 - `PORT`
 
-Nota CORS en producciÃ³n:
+Nota CORS en producción:
 
-- `FRONTEND_ORIGIN` acepta mÃºltiples orÃ­genes separados por coma.
+- `FRONTEND_ORIGIN` acepta múltiples orígenes separados por coma.
 - Ejemplo: `FRONTEND_ORIGIN=https://akai-studio.juann200213.workers.dev,http://localhost:5173,http://localhost:5174`
 
 ### Supabase + Prisma
 
-- `DATABASE_URL`: conexiÃ³n con pooling (PgBouncer), recomendada para runtime de la API.
-- `DIRECT_URL`: conexiÃ³n directa, usada por Prisma para migraciones/comandos de schema.
+- `DATABASE_URL`: conexión con pooling (PgBouncer), recomendada para runtime de la API.
+- `DIRECT_URL`: conexión directa, usada por Prisma para migraciones/comandos de schema.
 - En Render/Railway debes configurar **ambas** variables.
-- Nunca subas contraseÃ±as reales al repositorio.
+- Nunca subas contraseñas reales al repositorio.
 
 ### Supabase Storage (imagenes)
 
@@ -110,14 +110,14 @@ npm run prisma:seed
 npm run dev
 ```
 
-7. Probar endpoints pÃºblicos:
+7. Probar endpoints públicos:
 
 - `http://localhost:3001/api/health`
 - `http://localhost:3001/api/services`
 - `http://localhost:3001/api/projects`
 - `http://localhost:3001/api/products`
 
-## Scripts Ãºtiles
+## Scripts útiles
 
 - `npm run dev`
 - `npm run start`
@@ -131,7 +131,7 @@ npm run dev
 - `npm run prisma:studio`
 - `npm run db:reset`
 
-## Endpoints pÃºblicos
+## Endpoints públicos
 
 - `GET /api/health`
 - `GET /api/projects`
@@ -168,7 +168,7 @@ x-admin-token: <ADMIN_API_TOKEN>
 
 ## Deploy backend (Render / Railway)
 
-ConfiguraciÃ³n sugerida:
+Configuración sugerida:
 
 - Build command: `npm install && npx prisma generate`
 - Start command: `npm run start`

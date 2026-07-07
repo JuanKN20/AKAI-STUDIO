@@ -1,4 +1,4 @@
--- Yorurei Studio database schema
+-- Kyoru Studio database schema
 -- Execute this file in PostgreSQL before running seed.sql
 
 CREATE TABLE IF NOT EXISTS categories (

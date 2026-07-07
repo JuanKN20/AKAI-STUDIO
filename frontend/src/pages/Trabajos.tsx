@@ -95,7 +95,7 @@ const Trabajos: React.FC = () => {
       </div>
       <h1 className="akai-section-title mt-3">Proyectos y experiencias digitales</h1>
       <p className="akai-section-subtitle">
-        Trabajos desarrollados por Yorurei Studio: casos, prototipos y experiencias digitales creadas desde el estudio.
+        Trabajos desarrollados por Kyoru Studio: casos, prototipos y experiencias digitales creadas desde el estudio.
       </p>
       <p className="mt-3 max-w-4xl text-sm text-zinc-300 md:text-base">
         Exploramos desarrollo web, videojuegos, modelado 3D, animación, inteligencia artificial y contenido visual para construir
@@ -115,7 +115,7 @@ const Trabajos: React.FC = () => {
         <section className="mt-8">
           <article className="akai-card p-6">
             <h2 className="text-lg font-semibold text-white">Proyectos seleccionados</h2>
-            <p className="mt-2 text-sm text-zinc-300">Cargando trabajos desarrollados por Yorurei Studio...</p>
+            <p className="mt-2 text-sm text-zinc-300">Cargando trabajos desarrollados por Kyoru Studio...</p>
           </article>
         </section>
       ) : null}

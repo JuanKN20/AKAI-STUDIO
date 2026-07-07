@@ -46,7 +46,7 @@ app.use(express.json({ limit: '1mb' }));
 app.get('/api/health', (req, res) => {
   res.json({
     ok: true,
-    service: 'Yorurei Studio API',
+    service: 'Kyoru Studio API',
   });
 });
 
@@ -91,7 +91,7 @@ async function startServer() {
   }
 
   serverInstance = app.listen(safePort, () => {
-    console.log(`[server] Yorurei Studio API listening on port ${safePort}`);
+    console.log(`[server] Kyoru Studio API listening on port ${safePort}`);
     console.log('[server] Allowed CORS origins:', allowedOrigins);
   });
 }

@@ -3,10 +3,10 @@ import { ProjectItem } from '../services/api';
 export const fallbackProjects: ProjectItem[] = [
   {
     id: 1,
-    title: 'Yorurei Studio Web',
-    slug: 'yorurei-studio-web',
+    title: 'Kyoru Studio Web',
+    slug: 'kyoru-studio-web',
     category: 'Desarrollo web',
-    short_description: 'Sitio institucional de Yorurei Studio para presentar servicios y proyectos.',
+    short_description: 'Sitio institucional de Kyoru Studio para presentar servicios y proyectos.',
     long_description: 'Plataforma corporativa para comunicar la propuesta de valor del estudio.',
     status: 'published',
     cover_image_url: '/images/1013143.png',

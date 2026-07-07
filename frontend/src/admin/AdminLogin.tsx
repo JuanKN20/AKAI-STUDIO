@@ -74,14 +74,14 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ showInternalRoutes }) => {
               <ShieldCheck className="h-5 w-5" />
             </div>
             <div>
-              <p className="admin-kicker">Yorurei Studio</p>
+              <p className="admin-kicker">Kyoru Studio</p>
               <p className="text-sm font-semibold text-zinc-100">Acceso corporativo</p>
             </div>
           </div>
 
           <div className="space-y-2">
             <h1 className="text-2xl font-bold text-white sm:text-[1.85rem]">Panel interno</h1>
-            <p className="text-sm font-medium text-red-200">Acceso administrativo de Yorurei Studio</p>
+            <p className="text-sm font-medium text-red-200">Acceso administrativo de Kyoru Studio</p>
             <p className="max-w-lg text-sm leading-relaxed text-zinc-300">
               Ingresa el token interno para gestionar proyectos, servicios, productos y solicitudes de contacto.
             </p>

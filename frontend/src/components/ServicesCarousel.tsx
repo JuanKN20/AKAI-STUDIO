@@ -48,7 +48,7 @@ const services: ServiceItem[] = [
     description:
       "Exploramos automatización y experiencias inteligentes para nuevas líneas de producto.",
     link: "/contact",
-    cta: "Hablar con Yorurei Studio",
+    cta: "Hablar con Kyoru Studio",
     toneClass:
       "bg-[radial-gradient(circle_at_84%_14%,rgba(255,59,92,0.24),transparent_45%),radial-gradient(circle_at_15%_82%,rgba(179,23,47,0.22),transparent_44%),linear-gradient(135deg,rgba(7,7,10,0.96)_0%,rgba(18,9,13,0.9)_56%,rgba(12,14,18,0.95)_100%)]",
   },
@@ -72,7 +72,7 @@ const ServicesCarousel: React.FC = () => {
         <div className="akai-hud-line" />
         <p className="text-xs uppercase tracking-[0.24em] text-red-300">Servicios destacados</p>
       </div>
-      <h2 className="akai-section-title mt-3">Capacidades de Yorurei Studio</h2>
+      <h2 className="akai-section-title mt-3">Capacidades de Kyoru Studio</h2>
 
       <div className="relative mt-8 min-h-[420px] overflow-hidden rounded-3xl border border-red-900/40 shadow-akai-soft md:min-h-[520px]">
         <div className={`absolute inset-0 transition-all duration-500 ${currentService.toneClass}`} />

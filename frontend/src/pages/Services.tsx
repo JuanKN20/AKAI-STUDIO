@@ -82,7 +82,7 @@ const Services: React.FC = () => {
         <div className="akai-hud-line" />
         <p className="text-xs uppercase tracking-[0.24em] text-red-300">Servicios</p>
       </div>
-      <h1 className="akai-section-title mt-3">Servicios principales de Yorurei Studio</h1>
+      <h1 className="akai-section-title mt-3">Servicios principales de Kyoru Studio</h1>
       <p className="akai-section-subtitle">
         Servicios creativos y tecnológicos para construir experiencias digitales memorables.
       </p>
@@ -104,7 +104,7 @@ const Services: React.FC = () => {
         <section className="mt-8">
           <article className="akai-card p-6">
             <h2 className="text-lg font-semibold text-white">Capacidades disponibles</h2>
-            <p className="mt-2 text-sm text-zinc-300">Cargando servicios principales de Yorurei Studio...</p>
+            <p className="mt-2 text-sm text-zinc-300">Cargando servicios principales de Kyoru Studio...</p>
           </article>
         </section>
       ) : null}

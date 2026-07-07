@@ -95,10 +95,10 @@ async function main() {
 
   const projects = [
     {
-      title: 'Yorurei Studio Web',
-      slug: 'yorurei-studio-web',
+      title: 'Kyoru Studio Web',
+      slug: 'kyoru-studio-web',
       category: 'Desarrollo web',
-      shortDescription: 'Sitio institucional de Yorurei Studio para presentar servicios, proyectos y posicionamiento.',
+      shortDescription: 'Sitio institucional de Kyoru Studio para presentar servicios, proyectos y posicionamiento.',
       longDescription: 'Plataforma corporativa para comunicar oferta de valor del estudio creativo y tecnológico.',
       status: 'published',
       coverImageUrl: '/images/1013143.png',

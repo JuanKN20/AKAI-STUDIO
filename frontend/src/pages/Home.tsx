@@ -121,7 +121,7 @@ const Home: React.FC = () => {
               </div>
 
               <div>
-                <h1 className="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">Yorurei Studio</h1>
+                <h1 className="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">Kyoru Studio</h1>
                 <p className="mt-4 text-lg text-red-200 sm:text-xl">Creamos experiencias digitales, visuales e interactivas.</p>
                 <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-base">
                   Somos un estudio creativo y tecnológico enfocado en desarrollo web, videojuegos, animación, modelado 3D e
@@ -175,7 +175,7 @@ const Home: React.FC = () => {
           <div className="akai-hud-line" />
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Qué hacemos</p>
         </div>
-        <h2 className="akai-section-title mt-3">Líneas de negocio de Yorurei Studio</h2>
+        <h2 className="akai-section-title mt-3">Líneas de negocio de Kyoru Studio</h2>
         <p className="akai-section-subtitle">
           Integramos tecnología, creatividad y producción multimedia para construir soluciones digitales con identidad y alto impacto
           visual.
@@ -257,7 +257,7 @@ const Home: React.FC = () => {
           <div className="akai-hud-line" />
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Diferenciales</p>
         </div>
-        <h2 className="akai-section-title mt-3">Por qué Yorurei Studio</h2>
+        <h2 className="akai-section-title mt-3">Por qué Kyoru Studio</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {differentiators.map((item) => (
             <article key={item.title} className="akai-card p-6">
@@ -278,7 +278,7 @@ const Home: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.24em] text-red-300">Siguiente paso</p>
           <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Hablemos de tu proyecto</h2>
           <p className="mx-auto mt-3 max-w-3xl text-sm text-zinc-300 md:text-base">
-            Si estás construyendo una marca, producto o experiencia digital, en Yorurei Studio podemos ayudarte a diseñarlo y
+            Si estás construyendo una marca, producto o experiencia digital, en Kyoru Studio podemos ayudarte a diseñarlo y
             desarrollarlo con un enfoque creativo y tecnológico.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">

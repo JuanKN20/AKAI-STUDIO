@@ -1,13 +1,13 @@
-# Yorurei Studio
+# Kyoru Studio
 
-Repositorio principal de Yorurei Studio con separacion profesional de frontend y backend.
+Repositorio principal de Kyoru Studio con separacion profesional de frontend y backend.
 
 ## URLs actuales
 
 - Frontend publico (Cloudflare): `https://akai-studio.juann200213.workers.dev`
 - Backend publico (Render): `https://yorurei-studio-backend1.onrender.com`
 
-Nota: el dominio propio de Yorurei Studio sigue pendiente. Mientras tanto se usa la URL real de Cloudflare.
+Nota: el dominio propio de Kyoru Studio sigue pendiente. Mientras tanto se usa la URL real de Cloudflare.
 
 ## Estructura
 

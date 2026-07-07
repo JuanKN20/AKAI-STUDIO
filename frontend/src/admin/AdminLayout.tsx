@@ -38,7 +38,7 @@ const AdminLayout: React.FC = () => {
         <aside className="hidden w-72 shrink-0 lg:block">
           <div className="admin-surface sticky top-4 p-4">
             <div className="mb-5 border-b border-red-900/40 pb-4">
-              <p className="admin-kicker">Yorurei Studio</p>
+              <p className="admin-kicker">Kyoru Studio</p>
               <p className="mt-1 text-lg font-semibold text-zinc-100">Panel interno</p>
               <p className="mt-1 text-xs text-zinc-400">Gestión de contenido corporativo</p>
             </div>
@@ -79,7 +79,7 @@ const AdminLayout: React.FC = () => {
             </button>
 
             <div className="text-center">
-              <p className="admin-kicker">Yorurei Studio</p>
+              <p className="admin-kicker">Kyoru Studio</p>
               <p className="text-sm font-semibold text-zinc-100">Panel interno</p>
             </div>
 
@@ -107,7 +107,7 @@ const AdminLayout: React.FC = () => {
       >
         <div className="mb-4 flex items-center justify-between border-b border-red-900/40 pb-3">
           <div>
-            <p className="admin-kicker">Yorurei Studio</p>
+            <p className="admin-kicker">Kyoru Studio</p>
             <p className="text-sm font-semibold text-zinc-100">Panel interno</p>
           </div>
           <button type="button" onClick={() => setOpen(false)} className="admin-btn-secondary h-9 w-9 p-0" aria-label="Cerrar menú admin">

@@ -91,7 +91,7 @@ const AdminDashboard: React.FC = () => {
       <header className="admin-surface p-4 sm:p-5">
         <p className="admin-kicker">Panel interno</p>
         <h1 className="mt-1 text-2xl font-bold text-white">Dashboard admin</h1>
-        <p className="mt-1 text-sm text-zinc-300">Resumen operativo para la gestión de contenido de Yorurei Studio.</p>
+        <p className="mt-1 text-sm text-zinc-300">Resumen operativo para la gestión de contenido de Kyoru Studio.</p>
       </header>
 
       {error ? <div className="rounded-xl border border-red-700/60 bg-red-950/35 px-4 py-3 text-sm text-red-100">{error}</div> : null}

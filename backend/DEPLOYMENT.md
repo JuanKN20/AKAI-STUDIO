@@ -1,11 +1,11 @@
-ï»¿# Checklist de Despliegue - Yorurei Studio Backend
+# Checklist de Despliegue - Kyoru Studio Backend
 
 ## URLs actuales
 
 - Frontend publico (Cloudflare): `https://akai-studio.juann200213.workers.dev`
 - Backend publico (Render): `https://yorurei-studio-backend1.onrender.com`
 
-Nota: el dominio propio de Yorurei Studio sigue pendiente.
+Nota: el dominio propio de Kyoru Studio sigue pendiente.
 
 ## 1) Backend (Render / Railway)
 
@@ -28,7 +28,7 @@ Variables de entorno obligatorias:
 
 Nota CORS:
 
-- `FRONTEND_ORIGIN` puede incluir mÃºltiples URLs separadas por coma.
+- `FRONTEND_ORIGIN` puede incluir múltiples URLs separadas por coma.
 - Ejemplo: `FRONTEND_ORIGIN=https://akai-studio.juann200213.workers.dev,http://localhost:5173,http://localhost:5174`
 
 ## 2) Base de datos cloud (Supabase / Neon / Render Postgres)
@@ -45,9 +45,9 @@ DATABASE_URL=postgresql://postgres.PROJECT_REF:PASSWORD@aws-1-us-east-1.pooler.s
 DIRECT_URL=postgresql://postgres.PROJECT_REF:PASSWORD@aws-1-us-east-1.pooler.supabase.com:5432/postgres
 ```
 
-Nunca subas contraseÃ±as reales al repositorio.
+Nunca subas contraseñas reales al repositorio.
 
-## 3) Prisma en producciÃ³n
+## 3) Prisma en producción
 
 1. `prisma generate` durante build.
 2. `prisma migrate deploy` en deploy.
@@ -73,14 +73,14 @@ Variables de entorno:
 - `GET https://yorurei-studio-backend1.onrender.com/api/services`
 - `GET https://yorurei-studio-backend1.onrender.com/api/projects`
 - `GET https://yorurei-studio-backend1.onrender.com/api/products`
-- Probar envÃ­o del formulario pÃºblico (`POST /api/contacts`).
+- Probar envío del formulario público (`POST /api/contacts`).
 - Verificar CORS: `FRONTEND_ORIGIN` debe coincidir exactamente con la URL de Cloudflare Pages.
 
-## 6) Seguridad mÃ­nima
+## 6) Seguridad mínima
 
 - `ADMIN_API_TOKEN` largo y aleatorio.
 - `SUPABASE_SERVICE_ROLE_KEY` solo en backend (nunca en frontend).
-- No usar `VITE_SHOW_INTERNAL_ROUTES=true` en producciÃ³n.
+- No usar `VITE_SHOW_INTERNAL_ROUTES=true` en producción.
 - Planificar auth real para admin (usuarios/sesiones/JWT y roles).
 
 ## 7) Storage de imagenes (paso manual en Supabase)
