@@ -74,24 +74,6 @@ app.get('/api/health/ready', async (req, res) => {
   }
 });
 
-// Legacy endpoint kept for backward compatibility with the internal /usuarios view.
-app.get('/api/usuarios', async (req, res, next) => {
-  try {
-    const rows = await db.prisma.$queryRawUnsafe('SELECT * FROM usuarios ORDER BY id ASC');
-    return res.json(rows);
-  } catch (error) {
-    if (error?.code === 'P2010' && error?.meta?.code === '42P01') {
-      return res.json([]);
-    }
-
-    if (String(error?.message || '').toLowerCase().includes('relation "usuarios" does not exist')) {
-      return res.json([]);
-    }
-
-    return next(error);
-  }
-});
-
 app.use('/api', projectsRoutes);
 app.use('/api', servicesRoutes);
 app.use('/api', productsRoutes);

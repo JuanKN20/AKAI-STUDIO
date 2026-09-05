@@ -2,6 +2,7 @@ const { prisma } = require('../db');
 const slugify = require('../utils/slugify');
 
 const ALLOWED_PROJECT_STATUSES = new Set(['draft', 'published', 'archived', 'coming_soon']);
+const PUBLIC_PROJECT_STATUS = 'published';
 
 function parseId(value) {
   const parsed = Number.parseInt(String(value), 10);
@@ -135,10 +136,10 @@ async function getPublicProjects(req, res, next) {
   try {
     const requestedStatus = req.query.status;
     const requestedFeatured = req.query.featured;
-    let statuses = ['published', 'coming_soon'];
+    let status = PUBLIC_PROJECT_STATUS;
 
     if (requestedStatus !== undefined) {
-      statuses = [normalizeStatus(requestedStatus)];
+      status = normalizeStatus(requestedStatus);
     }
 
     let featuredFilter;
@@ -146,9 +147,11 @@ async function getPublicProjects(req, res, next) {
       featuredFilter = normalizeBoolean(requestedFeatured, 'featured');
     }
 
-    const where = {
-      status: { in: statuses },
-    };
+    if (status !== PUBLIC_PROJECT_STATUS) {
+      return res.json({ ok: true, data: [] });
+    }
+
+    const where = { status: PUBLIC_PROJECT_STATUS };
 
     if (featuredFilter !== undefined) {
       where.featured = featuredFilter;
@@ -174,7 +177,7 @@ async function getPublicProjectBySlug(req, res, next) {
     const row = await prisma.project.findFirst({
       where: {
         slug,
-        status: { in: ['published', 'coming_soon'] },
+        status: PUBLIC_PROJECT_STATUS,
       },
     });
 

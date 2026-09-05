@@ -2,6 +2,7 @@ const { prisma } = require('../db');
 const slugify = require('../utils/slugify');
 
 const ALLOWED_PRODUCT_STATUSES = new Set(['draft', 'published', 'archived', 'coming_soon']);
+const PUBLIC_PRODUCT_STATUS = 'published';
 
 function parseId(value) {
   const parsed = Number.parseInt(String(value), 10);
@@ -137,9 +138,9 @@ async function getPublicProducts(req, res, next) {
     const requestedFeatured = req.query.featured;
     const requestedType = req.query.type;
 
-    let statuses = ['published', 'coming_soon'];
+    let status = PUBLIC_PRODUCT_STATUS;
     if (requestedStatus !== undefined) {
-      statuses = [normalizeStatus(requestedStatus)];
+      status = normalizeStatus(requestedStatus);
     }
 
     let featuredFilter;
@@ -147,20 +148,26 @@ async function getPublicProducts(req, res, next) {
       featuredFilter = normalizeBoolean(requestedFeatured, 'featured');
     }
 
-    const where = {
-      status: { in: statuses },
-    };
+    let typeFilter;
+    if (requestedType !== undefined) {
+      typeFilter = String(requestedType).trim();
+      if (!typeFilter) {
+        return res.status(400).json({ ok: false, error: 'type must not be empty' });
+      }
+    }
+
+    if (status !== PUBLIC_PRODUCT_STATUS) {
+      return res.json({ ok: true, data: [] });
+    }
+
+    const where = { status: PUBLIC_PRODUCT_STATUS };
 
     if (featuredFilter !== undefined) {
       where.featured = featuredFilter;
     }
 
-    if (requestedType !== undefined) {
-      const type = String(requestedType).trim();
-      if (!type) {
-        return res.status(400).json({ ok: false, error: 'type must not be empty' });
-      }
-      where.type = type;
+    if (typeFilter !== undefined) {
+      where.type = typeFilter;
     }
 
     const rows = await prisma.product.findMany({
@@ -181,7 +188,7 @@ async function getPublicProductBySlug(req, res, next) {
     const row = await prisma.product.findFirst({
       where: {
         slug,
-        status: { in: ['published', 'coming_soon'] },
+        status: PUBLIC_PRODUCT_STATUS,
       },
     });
 
