@@ -16,6 +16,7 @@ const uploadsRoutes = require('./routes/uploads.routes');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
+const serviceName = 'Kyoru Studio API';
 
 const allowedOrigins = (process.env.FRONTEND_ORIGIN || '')
   .split(',')
@@ -43,11 +44,34 @@ app.use(cors(corsOptions));
 app.options(/.*/, cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
 
-app.get('/api/health', (req, res) => {
-  res.json({
+function livenessHandler(req, res) {
+  return res.json({
     ok: true,
-    service: 'Kyoru Studio API',
+    service: serviceName,
   });
+}
+
+// Backward-compatible liveness endpoint. It intentionally does not query PostgreSQL.
+app.get('/api/health', livenessHandler);
+app.get('/api/health/live', livenessHandler);
+
+app.get('/api/health/ready', async (req, res) => {
+  try {
+    await db.testConnection();
+
+    return res.json({
+      ok: true,
+      service: serviceName,
+      database: 'reachable',
+    });
+  } catch (error) {
+    console.error('[health:ready] Database readiness check failed', error);
+
+    return res.status(503).json({
+      ok: false,
+      error: 'Service temporarily unavailable',
+    });
+  }
 });
 
 // Legacy endpoint kept for backward compatibility with the internal /usuarios view.

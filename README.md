@@ -55,7 +55,7 @@ Checklist final Render (backend):
 - Start command: `npm run start`
 - Post deploy: `npx prisma migrate deploy`
 - Variables: `DATABASE_URL`, `DIRECT_URL`, `FRONTEND_ORIGIN`, `ADMIN_API_TOKEN`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_STORAGE_BUCKET`
-- Health check: `GET https://yorurei-studio-backend1.onrender.com/api/health`
+- Health check: `GET https://yorurei-studio-backend1.onrender.com/api/health/ready` (`/api/health` queda como liveness legado)
 
 ## Pendientes Tecnicos de Marca
 

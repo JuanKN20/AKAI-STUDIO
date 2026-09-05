@@ -13,18 +13,19 @@ Nota: el dominio propio de Kyoru Studio sigue pendiente.
 - Build command: `npm install && npx prisma generate`
 - Start command: `npm run start`
 - Migrate command: `npx prisma migrate deploy`
-- Health check: `GET /api/health`
+- Health check de liveness: `GET /api/health/live`
+- Health check de readiness: `GET /api/health/ready`
 
-Variables de entorno obligatorias:
+Variables de entorno:
 
-- `DATABASE_URL`
-- `DIRECT_URL`
-- `FRONTEND_ORIGIN`
-- `ADMIN_API_TOKEN`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `SUPABASE_STORAGE_BUCKET` (ejemplo: `yorurei-media`)
+- `DATABASE_URL` (obligatoria para arrancar el backend)
+- `DIRECT_URL` (obligatoria para build, validación y migraciones de Prisma CLI)
+- `FRONTEND_ORIGIN` (necesaria para peticiones del frontend en producción)
+- `ADMIN_API_TOKEN` (necesaria para rutas administrativas)
+- `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY` (necesarias para uploads)
+- `SUPABASE_STORAGE_BUCKET` (opcional; valor por defecto: `yorurei-media`)
 - `PORT` (si la plataforma lo solicita)
+- `NODE_ENV` (recomendado: `production`)
 
 Nota CORS:
 
@@ -35,15 +36,18 @@ Nota CORS:
 
 Para Supabase:
 
-- `DATABASE_URL`: usar URL de pooling (PgBouncer, normalmente puerto `6543`).
-- `DIRECT_URL`: usar URL directa (normalmente puerto `5432`) para migraciones Prisma.
+- `DATABASE_URL`: usar la URL del pooler transaccional (puerto `6543`) para el runtime.
+- `DIRECT_URL`: usar para Prisma CLI la URL directa o, si la red no admite IPv6, la URL del pooler de sesión (puerto `5432`).
+- Copiar ambas cadenas exactamente desde **Connect** en el proyecto Supabase. El host, la región y el usuario son específicos del proyecto.
 
 Ejemplo (sin credenciales reales):
 
 ```env
-DATABASE_URL=postgresql://postgres.PROJECT_REF:PASSWORD@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true
-DIRECT_URL=postgresql://postgres.PROJECT_REF:PASSWORD@aws-1-us-east-1.pooler.supabase.com:5432/postgres
+DATABASE_URL=postgresql://POOLER_USER:PASSWORD@POOLER_HOST:6543/DATABASE?pgbouncer=true
+DIRECT_URL=postgresql://MIGRATION_USER:PASSWORD@MIGRATION_HOST:5432/DATABASE
 ```
+
+Los valores anteriores son marcadores de formato, no direcciones reutilizables.
 
 Nunca subas contraseñas reales al repositorio.
 
@@ -69,7 +73,9 @@ Variables de entorno:
 
 ## 5) Verificaciones post-deploy
 
-- `GET https://yorurei-studio-backend1.onrender.com/api/health`
+- `GET https://yorurei-studio-backend1.onrender.com/api/health/live` debe responder `200` si Express está activo.
+- `GET https://yorurei-studio-backend1.onrender.com/api/health/ready` debe responder `200` solo si Prisma alcanza PostgreSQL; responde `503` en caso contrario.
+- `GET https://yorurei-studio-backend1.onrender.com/api/health` permanece como alias legado de liveness y no valida la base de datos.
 - `GET https://yorurei-studio-backend1.onrender.com/api/services`
 - `GET https://yorurei-studio-backend1.onrender.com/api/projects`
 - `GET https://yorurei-studio-backend1.onrender.com/api/products`

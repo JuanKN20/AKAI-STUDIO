@@ -29,16 +29,23 @@ cd backend
 Copy-Item .env.example .env
 ```
 
-Variables requeridas:
+Obligatoria para arrancar el backend:
 
 - `DATABASE_URL`
-- `DIRECT_URL`
+
+Requeridas por funcionalidad:
+
+- `DIRECT_URL` (build, validación y migraciones de Prisma CLI con el schema actual)
 - `FRONTEND_ORIGIN`
-- `ADMIN_API_TOKEN`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `SUPABASE_STORAGE_BUCKET`
-- `PORT`
+- `ADMIN_API_TOKEN` (rutas administrativas)
+- `SUPABASE_URL` (uploads)
+- `SUPABASE_SERVICE_ROLE_KEY` (uploads)
+
+Variables de configuración:
+
+- `SUPABASE_STORAGE_BUCKET` (opcional; tiene un valor por defecto)
+- `PORT` (opcional; usa `3001` por defecto)
+- `NODE_ENV` (opcional; controla el nivel de log de Prisma)
 
 Nota CORS en producción:
 
@@ -47,9 +54,10 @@ Nota CORS en producción:
 
 ### Supabase + Prisma
 
-- `DATABASE_URL`: conexión con pooling (PgBouncer), recomendada para runtime de la API.
-- `DIRECT_URL`: conexión directa, usada por Prisma para migraciones/comandos de schema.
+- `DATABASE_URL`: conexión con pooler transaccional, usada por Prisma Client en el runtime de la API.
+- `DIRECT_URL`: URL usada por Prisma CLI para migraciones/comandos de schema. Debe ser la conexión directa o una conexión de sesión compatible con migraciones.
 - En Render/Railway debes configurar **ambas** variables.
+- Copia las dos cadenas exactas desde el panel **Connect** del proyecto Supabase; no reutilices el host, región o usuario de un ejemplo.
 - Nunca subas contraseñas reales al repositorio.
 
 ### Supabase Storage (imagenes)
@@ -112,7 +120,9 @@ npm run dev
 
 7. Probar endpoints públicos:
 
-- `http://localhost:3001/api/health`
+- `http://localhost:3001/api/health` (compatibilidad; solo liveness)
+- `http://localhost:3001/api/health/live` (proceso HTTP)
+- `http://localhost:3001/api/health/ready` (Prisma + PostgreSQL)
 - `http://localhost:3001/api/services`
 - `http://localhost:3001/api/projects`
 - `http://localhost:3001/api/products`
@@ -134,6 +144,8 @@ npm run dev
 ## Endpoints públicos
 
 - `GET /api/health`
+- `GET /api/health/live`
+- `GET /api/health/ready`
 - `GET /api/projects`
 - `GET /api/projects/:slug`
 - `GET /api/services`
@@ -190,8 +202,10 @@ Pasos sugeridos:
 4. Configurar variables de entorno del servicio.
 5. Ejecutar migraciones con `npx prisma migrate deploy`.
 6. Ejecutar seed si aplica (`npm run prisma:seed`).
-7. Probar `GET /api/health`.
+7. Probar `GET /api/health/live` y `GET /api/health/ready`.
 8. Actualizar frontend Cloudflare con `VITE_API_BASE_URL=https://yorurei-studio-backend1.onrender.com`.
+
+`GET /api/health` se conserva como alias compatible de liveness y no comprueba PostgreSQL. Configura el health check operativo contra `GET /api/health/ready` cuando el servicio solo deba recibir tráfico con la base de datos disponible.
 
 ## SQL legacy
 
