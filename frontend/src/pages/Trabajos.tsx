@@ -21,7 +21,7 @@ function isValidExternalUrl(value: string | null): boolean {
 }
 
 function canShowRepository(value: string | null): boolean {
-  if (!isValidExternalUrl(value)) return false;
+  if (!value || !isValidExternalUrl(value)) return false;
   return value.toLowerCase().includes('github.com/');
 }
 
